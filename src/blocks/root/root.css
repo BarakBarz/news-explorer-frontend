@@ -1,0 +1,12 @@
+.root {
+  background-color: #fff;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Roboto', Arial, Helvetica,
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}

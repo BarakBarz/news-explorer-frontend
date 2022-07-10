@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+}
+
+.nav__link {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.33;
+  color: #fff;
+  margin: auto;
+}
+
+.nav__link:first-child {
+  margin-right: 38px;
+}
+
+.nav__link_active {
+  border-bottom: 3px solid #ffffff;
+  padding: 30px 10px 23px;
+}
+
+.nav__signin {
+  border: 1px solid #ffffff;
+  border-radius: 100px;
+  padding: 12px;
+  width: 152px;
+  text-align: center;
+}
