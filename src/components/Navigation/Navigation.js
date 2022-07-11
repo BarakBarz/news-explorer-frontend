@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useState } from 'react';
 import './Navigation.css';
 import { Link } from 'react-router-dom';
 
@@ -33,9 +30,11 @@ function Navigation({
       {(toggleMenu || screenWidth > 600) && (
         <ul className='nav__list'>
           <li className='nav__list-item'>
-            <a className='nav__link nav__link_active'>
+            <Link
+              to='/'
+              className='nav__link nav__link_active'>
               Home
-            </a>
+            </Link>
           </li>
           <li className='nav__list-item'>
             <button className='nav__button'>

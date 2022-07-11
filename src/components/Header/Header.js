@@ -2,21 +2,29 @@ import React, {
   useState,
   useEffect,
 } from 'react';
+import '../../blocks/overlay/overlay.css';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 function Header() {
   const [backgroundMenu, setBackgroundMenu] =
     useState(false);
+  const [isOverlay, setIsOverlay] =
+    useState(false);
 
+  const overlay = isOverlay && (
+    <div className='overlay'></div>
+  );
   const handleClick = () => {
     setBackgroundMenu(!backgroundMenu);
+    setIsOverlay(!isOverlay);
   };
 
   const [screenWidth, setScreenWidth] = useState(
     window.innerWidth
   );
 
+  // useEffect update component when screen size changes
   useEffect(() => {
     const changeWidth = () => {
       setScreenWidth(window.innerWidth);
@@ -48,6 +56,7 @@ function Header() {
       <Navigation
         screenWidth={screenWidth}
         handleClick={handleClick}></Navigation>
+      {screenWidth < 600 && overlay}
     </header>
   );
 }

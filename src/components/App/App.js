@@ -7,6 +7,7 @@ function App() {
     <div className='wrapper'>
       <div className='upper-section'>
         <Header></Header>
+
         <SearchForm></SearchForm>
       </div>
     </div>
