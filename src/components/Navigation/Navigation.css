@@ -1,5 +1,26 @@
 .nav {
   display: flex;
+  position: relative;
+}
+
+.nav__list {
+  padding: 0;
+  margin: 0;
+  margin-block-start: 0;
+  list-style: none;
+  max-height: 80px;
+  display: flex;
+}
+
+.nav__list-item {
+  padding: 0;
+  list-style: none;
+  margin: 0 38px 0 0;
+  align-self: center;
+}
+
+.nav__list-item:last-of-type {
+  margin: 0px;
 }
 
 .nav__link {
@@ -7,22 +28,102 @@
   font-weight: 500;
   line-height: 1.33;
   color: #fff;
-  margin: auto;
-}
-
-.nav__link:first-child {
-  margin-right: 38px;
+  cursor: pointer;
 }
 
 .nav__link_active {
   border-bottom: 3px solid #ffffff;
-  padding: 30px 10px 23px;
+  padding: 30px 10px 26px;
+  max-height: 80px;
 }
 
-.nav__signin {
+.nav__button {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.33;
   border: 1px solid #ffffff;
+  color: #fff;
   border-radius: 100px;
   padding: 12px;
-  width: 152px;
+  width: 172px;
+  background-color: transparent;
   text-align: center;
+  cursor: pointer;
+}
+
+.nav__menu-button {
+  visibility: hidden;
+  background-image: url(../../images/menu.svg);
+  display: block;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: contain;
+  margin: 0 16px 0 0;
+  border-style: none;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  align-self: center;
+}
+
+.nav__menu-button_close {
+  background-image: url(../../images/close.svg);
+  position: absolute;
+  left: 281px;
+  top: -40px;
+}
+
+@media screen and (max-width: 920px) {
+  .nav__list-item {
+    margin-right: 16px;
+  }
+
+  .nav__link {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .nav__link_active {
+    padding: 22px 10px 20px;
+    max-height: 80px;
+  }
+
+  .nav__button {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    width: 152px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav__menu-button {
+    visibility: visible;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    padding: 16px 0 24px;
+    width: 320px;
+    background-color: rgba(26, 27, 34, 1);
+  }
+
+  .nav__list-item {
+    width: 288px;
+    margin: 0;
+  }
+
+  .nav__button {
+    margin-top: 22px;
+    width: 288px;
+  }
+
+  .nav__link_active {
+    border-bottom: none;
+    padding: 0;
+    max-height: 200px;
+  }
 }

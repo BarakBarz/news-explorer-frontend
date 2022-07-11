@@ -6,17 +6,28 @@
 .upper-section {
   background-image: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png');
   height: 576px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 920px) {
   .wrapper {
     max-width: 768px;
   }
+
+  .upper-section {
+    height: 400px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .wrapper {
     max-width: 320px;
+  }
+
+  .upper-section {
+    height: 536px;
   }
 }
 
