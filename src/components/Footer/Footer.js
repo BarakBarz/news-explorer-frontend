@@ -8,10 +8,10 @@ function Footer() {
     <footer className='footer'>
       <h4 className='footer__heading'>{`© ${new Date().getFullYear()} Supersite, Powered by News API`}</h4>
       <div className='footer__links'>
-        <a href='' className='footer__link'>
+        <a href='/' className='footer__link'>
           Home
         </a>
-        <a href='' className='footer__link'>
+        <a href='/' className='footer__link'>
           Practicum by Yandex
         </a>
       </div>
@@ -19,11 +19,11 @@ function Footer() {
         <img
           className='footer__button'
           src={githubIcon}
-          alt=''></img>
+          alt='github icon'></img>
         <img
           className='footer__button'
           src={facebookIcon}
-          alt=''></img>
+          alt='facebook icon'></img>
       </div>
     </footer>
   );
