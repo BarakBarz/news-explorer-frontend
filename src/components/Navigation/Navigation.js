@@ -1,32 +1,10 @@
 import React, { useState } from 'react';
-import './Navigation.css';
 import { Link } from 'react-router-dom';
+import './Navigation.css';
 
-function Navigation({
-  handleClick,
-  screenWidth,
-}) {
-  const [toggleMenu, setToggleMenu] =
-    useState(false);
-
-  const toggleNav = () => {
-    setToggleMenu(!toggleMenu);
-  };
-
+function Navigation({ toggleMenu, screenWidth }) {
   return (
     <nav className='nav'>
-      {(toggleMenu || screenWidth < 600) && (
-        <button
-          onClick={() => {
-            toggleNav();
-            handleClick();
-          }}
-          className={
-            !toggleMenu
-              ? 'nav__menu-button'
-              : 'nav__menu-button nav__menu-button_close'
-          }></button>
-      )}
       {(toggleMenu || screenWidth > 600) && (
         <ul className='nav__list'>
           <li className='nav__list-item'>

@@ -1,0 +1,35 @@
+.footer {
+  height: 80px;
+  color: rgba(182, 188, 191, 1);
+}
+
+.footer__heading {
+  margin: 32px 0 0;
+  font-size: 16px;
+  line-height: 1.37;
+  font-weight: 400;
+}
+
+.footer__links {
+}
+
+.footer__link {
+  text-decoration: none;
+}
+
+.footer__icons {
+}
+
+.footer__button {
+}
+
+@media screen and (max-width: 920px) {
+  .footer {
+    height: 64px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .footer {
+    height: 176px;
+  }
+}

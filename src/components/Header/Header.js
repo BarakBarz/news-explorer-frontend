@@ -2,7 +2,6 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import '../../blocks/overlay/overlay.css';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
@@ -11,13 +10,20 @@ function Header() {
     useState(false);
   const [isOverlay, setIsOverlay] =
     useState(false);
+  const [toggleMenu, setToggleMenu] =
+    useState(false);
 
   const overlay = isOverlay && (
-    <div className='overlay'></div>
+    <div className='header__overlay'></div>
   );
   const handleClick = () => {
     setBackgroundMenu(!backgroundMenu);
+    setToggleMenu(!toggleMenu);
     setIsOverlay(!isOverlay);
+  };
+
+  const toggleNav = () => {
+    setToggleMenu(!toggleMenu);
   };
 
   const [screenWidth, setScreenWidth] = useState(
@@ -50,12 +56,28 @@ function Header() {
           ? 'header'
           : 'header header_theme_menu'
       }>
-      <h1 className='header__title'>
-        NewsExplorer
-      </h1>
+      <div className='header__container'>
+        <h1 className='header__title'>
+          NewsExplorer
+        </h1>
+        {(toggleMenu || screenWidth < 600) && (
+          <button
+            onClick={() => {
+              toggleNav();
+              handleClick();
+            }}
+            className={
+              !toggleMenu
+                ? 'header__menu-button'
+                : 'header__menu-button header__menu-button_close'
+            }></button>
+        )}
+      </div>
+
       <Navigation
         screenWidth={screenWidth}
-        handleClick={handleClick}></Navigation>
+        toggleMenu={toggleMenu}></Navigation>
+
       {screenWidth < 600 && overlay}
     </header>
   );

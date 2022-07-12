@@ -1,19 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchForm.css';
 
 function SearchForm() {
+  const [search, setSearch] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(search);
+  };
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
-    <section className='search'>
-      <div className='search__container'>
-        <h2 className='search__title'>
-          What's going on in the world
-        </h2>
-        <p className='search__paragraph'>
-          Find the latest news on any topic and
-          save them in your personal account.
-        </p>
-      </div>
-    </section>
+    <form
+      className='form'
+      onSubmit={handleSubmit}>
+      <input
+        onChange={handleChange}
+        type='text'
+        className='form__input'></input>
+      <button className='form__button'>
+        Search
+      </button>
+    </form>
   );
 }
 
