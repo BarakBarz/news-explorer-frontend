@@ -1,13 +1,18 @@
 .footer {
-  height: 80px;
   color: rgba(182, 188, 191, 1);
+  display: grid;
+  padding-top: 30px;
+  padding-left: 104px;
+  padding-right: 104px;
+  padding-bottom: 26px;
+  grid-template-columns: 4fr 2fr 1fr;
 }
 
 .footer__heading {
-  margin: 32px 0 0;
   font-size: 16px;
   line-height: 1.37;
   font-weight: 400;
+  margin: 0;
 }
 
 .footer__links {
