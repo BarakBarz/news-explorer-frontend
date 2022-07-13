@@ -31,8 +31,10 @@
 }
 
 .article-card__img {
+  display: block;
   max-width: 100%;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .article-card__info {
