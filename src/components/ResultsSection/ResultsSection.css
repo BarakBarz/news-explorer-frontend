@@ -21,7 +21,6 @@
   gap: 1.2%;
   grid-template-columns: repeat(3, minmax(224px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(3fr, 576px));
-  justify-content: center;
 }
 
 .results__more-button {
@@ -40,10 +39,12 @@
 
 @media screen and (max-width: 1120px) {
   .results {
-    padding: 80px 40px;
+    padding: 40px;
   }
+
   .results__list {
     padding: 0 0 32px;
+    gap: 8px;
   }
 }
 
@@ -51,14 +52,24 @@
   .results__list {
     grid-template-columns: repeat(2, minmax(224px, 1fr));
   }
+
+  .results__more-button {
+    height: 56px;
+    width: 240px;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .results {
-    padding: 80px 21px;
+    padding: 32px 16px 24px;
   }
+
   .results__list {
-    grid-template-columns: repeat(1, minmax(284px, 1fr));
-    padding: 0 0 40px;
+    grid-template-columns: repeat(1, minmax(288px, 1fr));
+    padding: 0 0 22px;
+    gap: 10px;
+  }
+  .results__more-button {
+    width: 288px;
   }
 }

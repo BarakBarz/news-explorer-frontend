@@ -2,7 +2,6 @@
   background-color: #fff;
   border-radius: 8px;
   box-sizing: border-box;
-  box-shadow: -2px -1px 8px 1px blueviolet;
   position: relative;
 }
 
@@ -11,23 +10,49 @@
   top: 24px;
   right: 24px;
   display: flex;
+  transition: 1s ease-out opacity;
+  flex-direction: row-reverse;
 }
 
 .article-card__button-status {
+  display: none;
+  opacity: 0;
+  background-color: #fff;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 13px 26px 0;
+  transition: 1s ease-out opacity;
 }
 
 .article-card__button-status-text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-align: center;
+  margin: 0;
 }
 
 .article-card__save-btn {
   background-image: url(../../images/save-inactive.svg);
   background-position: center;
   border-style: none;
+  background-repeat: no-repeat;
   border-radius: 8px;
   background-color: #fff;
   width: 40px;
   height: 40px;
   padding: 0;
+}
+
+.article-card__save-btn_active {
+  background-image: url(../../images/save-active.svg);
+  background-position: center;
+}
+
+.article-card__save-btn:hover + .article-card__button-status {
+  opacity: 1;
+  transition: 1s ease-out opacity;
+  display: block;
 }
 
 .article-card__img {

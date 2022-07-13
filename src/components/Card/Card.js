@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Card.css';
 import cardButtonInactive from '../../images/save-inactive.svg';
 
 function Card({ card }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isArticleSaved, setIsArticleSaved] = useState(false);
+  const handleClick = () => {
+    setIsArticleSaved(!isArticleSaved);
+  };
+
   return (
     <li className='article-card'>
       <div className='article-card__button-container'>
-        <div className='article-card__button-status'>
-          <p className='article-card__button-status-text'></p>
-        </div>
-        <button src={cardButtonInactive} className='article-card__save-btn' />
+        <button
+          src={cardButtonInactive}
+          onClick={handleClick}
+          className={
+            isLoggedIn && isArticleSaved
+              ? 'article-card__save-btn article-card__save-btn_active'
+              : 'article-card__save-btn'
+          }
+        />
+        {!isLoggedIn && (
+          <div className='article-card__button-status'>
+            <p className='article-card__button-status-text'>
+              Sign in to save articles
+            </p>
+          </div>
+        )}
       </div>
       <img className='article-card__img' src={card.image} alt='article' />
 
