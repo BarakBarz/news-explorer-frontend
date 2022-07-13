@@ -1,4 +1,5 @@
 {
   "editor.wordWrap": "on",
-  "editor.wordWrapColumn": 90
+  "editor.wordWrapColumn": 120,
+  "diffEditor.wordWrap": "on"
 }

@@ -2,7 +2,7 @@
   max-width: 1440px;
   margin: 0 auto;
   background-color: transparent;
-  border: solid 1px rgb(240, 72, 49);
+  box-shadow: -2px -1px 8px 10px blueviolet;
 }
 
 .upper-section {
