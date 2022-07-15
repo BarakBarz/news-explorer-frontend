@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Card.css';
 import cardButtonInactive from '../../images/save-inactive.svg';
 
-function Card({ card }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Card = React.memo(({ card, id, isLoggedIn }) => {
   const [isArticleSaved, setIsArticleSaved] = useState(false);
+
   const handleClick = () => {
     setIsArticleSaved(!isArticleSaved);
   };
@@ -33,7 +33,7 @@ function Card({ card }) {
 
       <div className='article-card__info'>
         <p className='article-card__date'>{card.date}</p>
-        <h3 className='article-card__title'>{card.title}</h3>
+        <h3 className='article-card__title'>{id + card.title}</h3>
         <blockquote cite={card.source} className='article-card__text-content'>
           {card.text}
         </blockquote>
@@ -43,6 +43,6 @@ function Card({ card }) {
       </div>
     </li>
   );
-}
+});
 
 export default Card;
