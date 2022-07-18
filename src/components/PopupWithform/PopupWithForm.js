@@ -24,18 +24,32 @@ export default function PopupWithForm({
         <h3
           className={`popup__title popup__title_type_${name}`}>
           {title}
+          {'Sign in'}
         </h3>
         <form
           className='popup__form'
           id={`${name}-form`}
           onSubmit={onSubmit}>
           {children}
+
           <button
             type='submit'
             aria-label='Submit'
-            className={`popup__submit-btn popup__submit-btn_type_${name}`}>
+            className={`popup__submit-btn`}>
             {buttonText}
+            {'Sign in'}
           </button>
+          <p className='popup__text'>
+            or{' '}
+            <a
+              className='popup__link'
+              onClick={() => {
+                console.log('switcheroo');
+              }}>
+              {/* {orText} */}
+              {'Sign up'}
+            </a>
+          </p>
         </form>
       </div>
     </div>

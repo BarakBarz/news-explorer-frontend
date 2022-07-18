@@ -46,7 +46,7 @@
   }
 
   .form__input {
-    padding: 0 165px 0 10px;
+    padding: 0 165px 0 20px;
   }
 }
 
@@ -63,6 +63,6 @@
   }
 
   .form__input {
-    padding: 0 10px;
+    padding: 0 17px;
   }
 }

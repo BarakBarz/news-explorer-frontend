@@ -6,12 +6,12 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import background from '../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png';
 import { usePathname } from '../../utils/constants';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
+import background from '../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
