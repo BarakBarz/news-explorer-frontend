@@ -34,6 +34,7 @@
   .search {
     background-position-y: -67px;
   }
+
   .search__container {
     max-width: 452px;
   }
@@ -53,6 +54,7 @@
     min-width: 288px;
     padding: 0 16px;
   }
+
   .search__title {
     margin-top: 30px;
   }

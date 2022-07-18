@@ -2,13 +2,19 @@
   max-width: 1440px;
   margin: 0 auto;
   background-color: transparent;
-  box-shadow: -2px -1px 8px 10px blueviolet;
+  position: relative;
 }
 
-.upper-section {
-  background-image: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.background {
+  height: calc(495px + 86px);
+  min-width: 100%;
+  max-width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  display: block;
+  object-fit: cover;
+  z-index: -2;
 }
 

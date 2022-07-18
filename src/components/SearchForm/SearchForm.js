@@ -6,7 +6,6 @@ function SearchForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(search);
   };
 
   const handleChange = (e) => {
@@ -14,16 +13,14 @@ function SearchForm() {
   };
 
   return (
-    <form
-      className='form'
-      onSubmit={handleSubmit}>
+    <form className='form' onSubmit={handleSubmit}>
       <input
         onChange={handleChange}
         type='text'
+        placeholder='Enter topic'
+        value={'' || search}
         className='form__input'></input>
-      <button className='form__button'>
-        Search
-      </button>
+      <button className='form__button'>Search</button>
     </form>
   );
 }

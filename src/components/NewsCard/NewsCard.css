@@ -1,13 +1,11 @@
-.article-card::before {
+.article-card {
   background-color: #fff;
   border-radius: 8px;
   box-sizing: border-box;
   position: relative;
-  z-index: 1;
 }
 
-.article-card:hover::before {
-  z-index: 0;
+.article-card:hover {
   box-shadow: 0px 3px 58px -11px rgba(8, 29, 45, 0.1);
 }
 
@@ -16,49 +14,28 @@
   top: 24px;
   right: 24px;
   display: flex;
-  transition: 1s ease-out opacity;
   flex-direction: row-reverse;
 }
 
-.article-card__button-status {
-  display: none;
-  opacity: 0;
+.article-card__keyword-container {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
   background-color: #fff;
   margin-right: 5px;
   border-radius: 10px;
-  padding: 13px 26px 0;
-  transition: 1s ease-out opacity;
+  padding: 8px 22px;
+  box-sizing: border-box;
+  height: 40px;
 }
 
-.article-card__button-status-text {
+.article-card__keyword-text {
   font-weight: 500;
-  font-size: 12px;
-  line-height: 1.16;
+  font-size: 14px;
+  line-height: 1.71;
   text-align: center;
   margin: 0;
-}
-
-.article-card__save-btn {
-  background-image: url(../../images/save-inactive.svg);
-  background-position: center;
-  border-style: none;
-  background-repeat: no-repeat;
-  border-radius: 8px;
-  background-color: #fff;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-}
-
-.article-card__save-btn_active {
-  background-image: url(../../images/save-active.svg);
-  background-position: center;
-}
-
-.article-card__save-btn:hover + .article-card__button-status {
-  opacity: 1;
-  transition: 1s ease-out opacity;
-  display: block;
 }
 
 .article-card__img {
@@ -102,6 +79,7 @@
   margin: 0 0 12px;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 500;
 }
 
 .article-card__source {
