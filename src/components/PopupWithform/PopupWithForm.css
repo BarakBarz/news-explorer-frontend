@@ -11,7 +11,7 @@
   align-items: center;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.7s, opacity 0.7s ease-in-out;
+  /* transition: visibility 0.7s, opacity 0.7s ease-in-out; */
 }
 
 .popup_visible {
@@ -117,14 +117,19 @@
 }
 
 .popup__error {
-  visibility: visible;
-  display: inline-block;
+  visibility: collapse;
+  padding-top: 14.4px;
+  display: block;
   color: red;
   font-size: 12px;
   line-height: 1.2;
-
   max-width: 383px;
   white-space: initial;
+}
+
+.popup__error_visible {
+  visibility: visible;
+  padding-top: 0;
 }
 
 .popup__text {

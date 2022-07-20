@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Login.css';
 
-const Login = ({ onClose, isOpen }) => {
+const Login = ({ onClose, isOpen, switchPopups }) => {
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -31,7 +31,8 @@ const Login = ({ onClose, isOpen }) => {
       buttonText='Sign in'
       title='Sign in'
       name='login'
-      isOpen={isOpen}>
+      isOpen={isOpen}
+      switchPopups={switchPopups}>
       <label className='popup__input-label'>Email</label>
 
       <input
@@ -45,11 +46,11 @@ const Login = ({ onClose, isOpen }) => {
         required
       />
 
-      <p
+      <span
         id='validation-error'
-        className='popup__error popup__error_type_login'>
+        className='popup__error popup__error_visible popup__error_type_login'>
         Invalid email address
-      </p>
+      </span>
 
       <label className='popup__input-label'>Password</label>
 
@@ -65,11 +66,11 @@ const Login = ({ onClose, isOpen }) => {
         required
       />
 
-      <p
+      <span
         id='validation-error'
         className='popup__error popup__error_type_login'>
         {'' || errorText}
-      </p>
+      </span>
     </PopupWithForm>
   );
 };

@@ -20,6 +20,11 @@
   color: rgba(182, 188, 191, 1);
 }
 
+.form__input:focus-visible {
+  outline-color: transparent;
+  outline-width: 0;
+}
+
 .form__button {
   background-color: #2f71e5;
   color: #fff;

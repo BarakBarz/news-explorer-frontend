@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Register.css';
 
-const Register = ({ isOpen, onClose }) => {
+const Register = ({ isOpen, onClose, switchPopups }) => {
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -30,7 +30,8 @@ const Register = ({ isOpen, onClose }) => {
       buttonText='Sign up'
       title='Sign up'
       name='register'
-      isOpen={isOpen}>
+      isOpen={isOpen}
+      switchPopups={switchPopups}>
       <label className='popup__input-label'>Email</label>
       <input
         className='popup__input'
@@ -67,7 +68,7 @@ const Register = ({ isOpen, onClose }) => {
         required></input>{' '}
       <span
         id='validation-error'
-        className='popup__error popup__error_type_signup'>
+        className='popup__error popup__error_visible popup__error_type_signup'>
         This email is not available
       </span>
     </PopupWithForm>

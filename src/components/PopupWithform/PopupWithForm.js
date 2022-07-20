@@ -9,9 +9,15 @@ export default function PopupWithForm({
   isOpen,
   onClose,
   onSubmit,
+  switchPopups,
 }) {
   const orText =
     buttonText === 'Sign in' ? 'Sign Up' : 'Sign in';
+
+  const handleOrClick = () => {
+    switchPopups();
+  };
+
   return (
     <div
       className={`popup popup_type_${name} ${
@@ -43,9 +49,7 @@ export default function PopupWithForm({
             or{' '}
             <span
               className='popup__link'
-              onClick={() => {
-                console.log('switcheroo');
-              }}>
+              onClick={handleOrClick}>
               {orText}
             </span>
           </p>
