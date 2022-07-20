@@ -1,22 +1,17 @@
 import './App.css';
 import Header from '../Header/Header';
-import {
-  Switch,
-  Route,
-  useHistory,
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { usePathname } from '../../utils/constants';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
-import PopupWithForm from '../PopupWithform/PopupWithForm';
 import background from '../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [preloader, setPreloader] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);

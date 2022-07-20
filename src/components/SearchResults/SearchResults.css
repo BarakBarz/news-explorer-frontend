@@ -7,7 +7,8 @@
 
 .results__title {
   padding-left: 104px;
-  font-family: 'Roboto-Slab';
+  font-family: 'Roboto-Slab', Arial, Helvetica, sans-serif;
+  font-weight: 400;
   font-size: 40px;
   line-height: 1.15;
   color: rgba(26, 27, 34, 1);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NewsCard from '../NewsCard/NewsCard';
 
 import './NewsCardList.css';

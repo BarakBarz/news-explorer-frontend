@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import facebookIcon from '../../images/facebook-icon.svg';
 import githubIcon from '../../images/github-icon.svg';
 import './Footer.css';
@@ -8,10 +9,12 @@ function Footer() {
     <footer className='footer'>
       <h4 className='footer__heading'>{`© ${new Date().getFullYear()} Supersite, Powered by News API`}</h4>
       <div className='footer__links'>
-        <a href='/' className='footer__link'>
+        <Link href='/' className='footer__link'>
           Home
-        </a>
-        <a href='/' className='footer__link'>
+        </Link>
+        <a
+          href='https://practicum.com/'
+          className='footer__link'>
           Practicum by Yandex
         </a>
       </div>

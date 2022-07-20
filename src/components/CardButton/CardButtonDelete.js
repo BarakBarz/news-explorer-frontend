@@ -1,5 +1,4 @@
 import React from 'react';
-import cardButtonDeleteIcon from '../../images/trash.svg';
 
 const CardButtonDelete = ({ deleteButtonClick }) => {
   const handleClick = (e) => {

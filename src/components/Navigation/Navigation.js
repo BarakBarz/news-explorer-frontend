@@ -17,6 +17,7 @@ function Navigation({
     <>
       <p className='nav__button-text'>{currentUser.name}</p>
       <img
+        alt='logout button'
         src={isMain ? logoutIconWhite : logoutIconBlack}
       />
     </>

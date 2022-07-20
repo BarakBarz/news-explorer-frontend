@@ -67,4 +67,4 @@ const NewsCard = ({ isLoggedIn, card, isMain }) => {
   );
 };
 
-export default NewsCard;
+export default React.memo(NewsCard);
