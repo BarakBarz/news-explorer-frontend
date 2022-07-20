@@ -13,16 +13,22 @@ import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import background from '../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [preloader, setPreloader] = useState(false);
-  const [isSignUpOpen, setIsSignUpOpen] = useState(true);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isSigninOpen, setIsSigninOpen] = useState(true);
   const isMain = usePathname() === '/';
 
   const handleSigninClick = () => {
     console.log(2);
-    setIsSignUpOpen(true);
+    setIsSigninOpen(true);
+  };
+
+  const handleSignupClick = () => {
+    setIsSignupOpen(true);
   };
 
   useEffect(() => {
@@ -42,7 +48,8 @@ const App = () => {
   }, []);
 
   const closeAllPopups = () => {
-    setIsSignUpOpen(false);
+    setIsSigninOpen(false);
+    setIsSignupOpen(false);
   };
 
   return (
@@ -67,7 +74,11 @@ const App = () => {
             isMain={isMain}
           />
           <Register
-            isOpen={isSignUpOpen}
+            isOpen={isSignupOpen}
+            onClose={closeAllPopups}
+          />
+          <Login
+            isOpen={isSigninOpen}
             onClose={closeAllPopups}
           />
         </Route>

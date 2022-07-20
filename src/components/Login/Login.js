@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PopupWithForm from '../PopupWithform/PopupWithForm';
+import './Login.css';
 
-const Login = () => {
+const Login = ({ onClose, isOpen }) => {
   const [input, setInput] = useState({
     email: '',
     password: '',
@@ -8,7 +10,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit login');
+    console.log('Submit login');
   };
 
   const handleChange = (e) => {
@@ -19,6 +21,8 @@ const Login = () => {
     });
     console.log('change login input');
   };
+
+  const errorText = null;
 
   return (
     <PopupWithForm
@@ -31,7 +35,7 @@ const Login = () => {
       <label className='popup__input-label'>Email</label>
 
       <input
-        className='popup__input'
+        className='popup__input popup__input_type_login'
         placeholder='Enter email'
         name='email'
         value={'' || input.email}
@@ -41,14 +45,16 @@ const Login = () => {
         required
       />
 
-      <span id='validation-error' className='popup__error'>
-        This email is not available
-      </span>
+      <p
+        id='validation-error'
+        className='popup__error popup__error_type_login'>
+        Invalid email address
+      </p>
 
       <label className='popup__input-label'>Password</label>
 
       <input
-        className='popup__input'
+        className='popup__input popup__input_type_login'
         placeholder='Enter password'
         name='password'
         value={'' || input.password}
@@ -59,9 +65,11 @@ const Login = () => {
         required
       />
 
-      <span
+      <p
         id='validation-error'
-        className='popup__error popup__error_type_login'></span>
+        className='popup__error popup__error_type_login'>
+        {'' || errorText}
+      </p>
     </PopupWithForm>
   );
 };
