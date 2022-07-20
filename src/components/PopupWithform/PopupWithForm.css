@@ -33,7 +33,7 @@
 .popup__title {
   color: rgba(26, 27, 34, 1);
   padding: 0;
-  margin: 0 0 44px;
+  margin: 0 0 28px;
   font-weight: 900;
   font-size: 24px;
   line-height: 1.17;
@@ -79,7 +79,6 @@
   justify-self: center;
   align-self: center;
   padding: 0;
-  margin-top: 39px;
 }
 
 .popup__submit-btn:hover {
@@ -93,6 +92,38 @@
   color: rgba(182, 188, 191, 1);
   background-color: rgba(230, 232, 235, 1);
   cursor: default;
+}
+
+.popup__input-label {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: rgba(47, 113, 229, 1);
+}
+
+.popup__input {
+  padding: 10px 0;
+  border-style: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  margin-bottom: 30px;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.popup__input:focus-visible {
+  outline-color: transparent;
+  outline-width: 0;
+}
+
+.popup__error {
+  visibility: visible;
+  display: block;
+  color: red;
+  font-size: 12px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  max-width: 383px;
+  white-space: initial;
 }
 
 .popup__text {
@@ -133,6 +164,5 @@
     width: 238px;
     height: 46px;
     font-size: 14px;
-    margin-top: 46px;
   }
 }

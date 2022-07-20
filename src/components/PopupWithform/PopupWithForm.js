@@ -10,6 +10,8 @@ export default function PopupWithForm({
   onClose,
   onSubmit,
 }) {
+  const orText =
+    buttonText === 'Sign in' ? 'Sign Up' : 'Sign in';
   return (
     <div
       className={`popup popup_type_${name} ${
@@ -24,7 +26,6 @@ export default function PopupWithForm({
         <h3
           className={`popup__title popup__title_type_${name}`}>
           {title}
-          {'Sign in'}
         </h3>
         <form
           className='popup__form'
@@ -37,18 +38,16 @@ export default function PopupWithForm({
             aria-label='Submit'
             className={`popup__submit-btn`}>
             {buttonText}
-            {'Sign in'}
           </button>
           <p className='popup__text'>
             or{' '}
-            <a
+            <span
               className='popup__link'
               onClick={() => {
                 console.log('switcheroo');
               }}>
-              {/* {orText} */}
-              {'Sign up'}
-            </a>
+              {orText}
+            </span>
           </p>
         </form>
       </div>
