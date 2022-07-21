@@ -38,7 +38,7 @@
 @media screen and (max-width: 920px) {
   .saved-news-header {
     padding: 24px 40px 32px;
-    grid-template-columns: minmax(288px, 336px);
+    grid-template-columns: minmax(336px, 380px);
     gap: 16px;
   }
 
@@ -50,6 +50,10 @@
   .saved-news-header__greeting {
     font-size: 30px;
     line-height: 1.13;
+  }
+
+  .saved-news-header__keywords-used {
+    width: unset;
   }
 }
 

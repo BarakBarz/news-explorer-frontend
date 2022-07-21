@@ -19,14 +19,24 @@ function Footer() {
         </a>
       </div>
       <div className='footer__icons'>
-        <img
-          className='footer__button'
-          src={githubIcon}
-          alt='github icon'></img>
-        <img
-          className='footer__button'
-          src={facebookIcon}
-          alt='facebook icon'></img>
+        <a
+          href='https://github.com/BarakB1991'
+          className='footer__icon-link'>
+          <img
+            className='footer__button'
+            src={githubIcon}
+            alt='github icon'
+          />
+        </a>
+        <a
+          href='https://facebook.com/106654715369878/'
+          className='footer__icon-link'>
+          <img
+            className='footer__button'
+            src={facebookIcon}
+            alt='facebook icon'
+          />
+        </a>
       </div>
     </footer>
   );
