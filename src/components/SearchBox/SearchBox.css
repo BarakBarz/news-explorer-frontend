@@ -50,6 +50,10 @@
   }
 }
 @media screen and (max-width: 600px) {
+  .search {
+    padding: 0 0 32px;
+  }
+
   .search__container {
     min-width: 288px;
     padding: 0 16px;

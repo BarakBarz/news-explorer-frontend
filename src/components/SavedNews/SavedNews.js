@@ -8,7 +8,7 @@ const SavedNews = ({ isLoggedIn, isMain }) => {
   const cardss = cards;
 
   return (
-    <>
+    <main>
       <SavedNewsHeader />
       <NewsCardList
         deck={cardss}
@@ -16,7 +16,7 @@ const SavedNews = ({ isLoggedIn, isMain }) => {
         isLoggedIn={isLoggedIn}
         isMain={isMain}
       />
-    </>
+    </main>
   );
 };
 

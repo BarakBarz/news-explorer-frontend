@@ -11,14 +11,14 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [preloader, setPreloader] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(true);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const isMain = usePathname() === '/';
 
-  const handleSigninClick = () => {
-    setIsSigninOpen(true);
+  const handleSignupClick = () => {
+    setIsSignupOpen(true);
   };
 
   useEffect(() => {
@@ -59,15 +59,10 @@ const App = () => {
       <Header
         isLoggedIn={isLoggedIn}
         isMain={isMain}
-        onSigninClick={handleSigninClick}
+        onSigninClick={handleSignupClick}
       />
       <Switch>
         <Route exact path='/'>
-          <Main
-            isLoggedIn={isLoggedIn}
-            preloader={preloader}
-            isMain={isMain}
-          />
           <Register
             isOpen={isSignupOpen}
             onClose={closeAllPopups}
@@ -77,6 +72,11 @@ const App = () => {
             isOpen={isSigninOpen}
             onClose={closeAllPopups}
             switchPopups={switchBetweenPopups}
+          />
+          <Main
+            isLoggedIn={isLoggedIn}
+            preloader={preloader}
+            isMain={isMain}
           />
         </Route>
         <Route exact path='/saved-news'>
