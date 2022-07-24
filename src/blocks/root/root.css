@@ -1,0 +1,25 @@
+.root {
+  background-color: #fff;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (max-width: 920px) {
+  .root {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .root {
+    min-width: 320px;
+    max-width: 390px;
+  }
+}

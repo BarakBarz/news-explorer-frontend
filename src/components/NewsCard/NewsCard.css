@@ -1,0 +1,138 @@
+.article-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.article-card:hover {
+  box-shadow: 0px 3px 58px -11px rgba(8, 29, 45, 0.1);
+}
+
+.article-card__button-container {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.article-card__keyword-container {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  background-color: #fff;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 8px 22px;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.article-card__keyword-text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.71;
+  text-align: center;
+  margin: 0;
+}
+
+.article-card__img {
+  display: block;
+  max-width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.article-card__info {
+  padding: 20px 24px 24px;
+}
+
+.article-card__date {
+  font-family: 'Source Sans Pro', system-ui, -apple-system,
+    sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.33;
+  color: rgba(182, 188, 191, 1);
+  margin: 0 0 12px;
+}
+
+.article-card__title {
+  display: inline-block;
+  font-family: 'Roboto-Slab', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.15;
+  color: rgba(26, 27, 34, 1);
+  height: 60px;
+  margin: 0 0 12px;
+  overflow: hidden;
+}
+
+.article-card__text-content {
+  font-size: 16px;
+  line-height: 1.37;
+  color: rgba(26, 27, 34, 1);
+  margin: 0;
+  height: 110px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+.article-card__source {
+  font-family: 'Roboto-Slab', Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  color: rgba(182, 188, 191, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 920px) {
+  .article-card__info {
+    padding: 16px;
+  }
+
+  .article-card__title {
+    font-size: 22px;
+    line-height: 1.1;
+    height: 72px;
+  }
+
+  .article-card__button-container {
+    top: 8px;
+    right: 8px;
+  }
+
+  .article-card__keyword-container {
+    top: 8px;
+    left: 8px;
+  }
+
+  .article-card__text-content {
+    font-size: 16px;
+    line-height: 1.37;
+    max-height: 88px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .article-card__button-container {
+    top: 16px;
+    right: 16px;
+  }
+
+  .article-card__keyword-container {
+    top: 16px;
+    left: 16px;
+  }
+}

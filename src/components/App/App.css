@@ -1,0 +1,20 @@
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: transparent;
+  position: relative;
+}
+
+.background {
+  height: calc(495px + 86px);
+  min-width: 100%;
+  max-width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  display: block;
+  object-fit: cover;
+  z-index: -2;
+}
+

@@ -1,0 +1,114 @@
+.header {
+  height: 80px;
+  display: flex;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  justify-content: space-between;
+  padding: 0 104px;
+  position: relative;
+}
+
+.header_theme_saved-news {
+  color: rgba(26, 27, 34, 1);
+  border-bottom: 1px solid rgba(209, 210, 214, 1);
+}
+
+.header__container {
+  display: flex;
+  color: inherit;
+}
+
+.header__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header__title {
+  font-family: 'Roboto-Slab', Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: inherit;
+  margin: 0;
+  margin-top: 30px;
+  padding: 0;
+}
+
+.header__menu-button {
+  visibility: hidden;
+  background-image: url(../../images/menu.svg);
+  display: block;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: contain;
+  margin: 0 16px 0 0;
+  border-style: none;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  align-self: center;
+}
+
+@media screen and (max-width: 920px) {
+  .header {
+    height: 66px;
+    max-width: 768px;
+    padding: 0 40px;
+  }
+
+  .header_theme_menu {
+    background-color: rgba(26, 27, 34, 1);
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+  }
+
+  .header__title {
+    margin-top: 22px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    height: 56px;
+    padding: 0;
+    align-items: stretch;
+    justify-items: stretch;
+    z-index: 1;
+  }
+
+  .header_theme_menu-black {
+    color: #fff;
+  }
+
+  .header__container {
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .header__title {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 16px 0;
+    padding-left: 16px;
+  }
+
+  .header__menu-button {
+    visibility: visible;
+  }
+
+  .header__menu-button_black {
+    background-image: url(../../images/menu-white.svg);
+  }
+  .header__menu-button_close {
+    background-image: url(../../images/close.svg);
+  }
+  .header__overlay {
+    position: relative;
+    padding-bottom: 143vh;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

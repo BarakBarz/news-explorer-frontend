@@ -1,0 +1,55 @@
+.button__status {
+  display: none;
+  background-color: #fff;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 13px 26px 0;
+}
+
+.button__status-text {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16;
+  text-align: center;
+  margin: 0;
+}
+
+.button {
+  background-position: center;
+  border-style: none;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.button_type_save {
+  background-image: url(../../images/save-inactive.svg);
+}
+
+.button_type_delete {
+  background-image: url(../../images/trash.svg);
+}
+
+.button_type_delete:hover {
+  background-image: url(../../images/trash-hover.svg);
+}
+
+.button_type_save:hover {
+  background-image: url(../../images/save-hover.svg);
+}
+
+.button_type_save_active {
+  background-image: url(../../images/save-active.svg);
+}
+
+.button_type_save_active:hover {
+  background-image: url(../../images/save-active.svg);
+}
+
+.button:hover + .button__status {
+  display: block;
+}

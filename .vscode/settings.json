@@ -1,0 +1,8 @@
+{
+  "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 120,
+  "diffEditor.wordWrap": "on",
+  "prettier.proseWrap": "always",
+  "prettier.printWidth": 60,
+  "markdown.preview.breaks": true
+}
