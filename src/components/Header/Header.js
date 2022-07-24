@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
+
 import './Header.css';
 
-function Header({ isLoggedIn, isMain, onSigninClick }) {
+function Header({
+  isLoggedIn,
+  isMain,
+  onSigninClick,
+  onLogoutClick,
+}) {
   const [backgroundMenu, setBackgroundMenu] =
     useState(false);
   const [isOverlay, setIsOverlay] = useState(false);
@@ -80,6 +86,7 @@ function Header({ isLoggedIn, isMain, onSigninClick }) {
       </div>
 
       <Navigation
+        onLogoutclick={onLogoutClick}
         isLoggedIn={isLoggedIn}
         isMain={isMain}
         screenWidth={screenWidth}

@@ -2,24 +2,28 @@ import React, { useState } from 'react';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Login.css';
 
-const Login = ({ onClose, isOpen, switchPopups }) => {
-  const [input, setInput] = useState({
+const Login = ({
+  onClose,
+  isOpen,
+  switchPopups,
+  onSubmit,
+}) => {
+  const [inputs, setInput] = useState({
     email: '',
     password: '',
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submit login');
+    onSubmit({ inputs });
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
     setInput({
-      ...input,
+      ...inputs,
       [e.target.name]: value,
     });
-    console.log('change login input');
   };
 
   const errorText = null;
@@ -39,9 +43,9 @@ const Login = ({ onClose, isOpen, switchPopups }) => {
         className='popup__input popup__input_type_login'
         placeholder='Enter email'
         name='email'
-        value={'' || input.email}
+        value={'' || inputs.email}
         maxLength='30'
-        type='text'
+        type='email'
         onChange={handleChange}
         required
       />
@@ -58,10 +62,10 @@ const Login = ({ onClose, isOpen, switchPopups }) => {
         className='popup__input popup__input_type_login'
         placeholder='Enter password'
         name='password'
-        value={'' || input.password}
+        value={'' || inputs.password}
         maxLength='30'
         minLength='8'
-        type='text'
+        type='password'
         onChange={handleChange}
         required
       />

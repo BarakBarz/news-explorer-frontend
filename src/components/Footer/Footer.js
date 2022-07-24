@@ -9,7 +9,7 @@ function Footer() {
     <footer className='footer'>
       <h4 className='footer__heading'>{`© ${new Date().getFullYear()} Supersite, Powered by News API`}</h4>
       <div className='footer__links'>
-        <Link href='/' className='footer__link'>
+        <Link to='/' className='footer__link'>
           Home
         </Link>
         <a

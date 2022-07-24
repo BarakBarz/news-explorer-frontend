@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logoutIconWhite from '../../images/logout-icon-white.svg';
 import logoutIconBlack from '../../images/logout-icon-black.svg';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Navigation.css';
 
 function Navigation({
@@ -10,12 +11,19 @@ function Navigation({
   isMain,
   isLoggedIn,
   onSigninClick,
+  onLogoutclick,
 }) {
-  const currentUser = { name: 'Barak' };
+  const currentUser = React.useContext(CurrentUserContext);
 
-  const logoutElement = (
+  const handleLogoutClick = () => {
+    onLogoutclick();
+  };
+
+  useEffect(() => {}, [isLoggedIn]);
+
+  const logoutElement = (username) => (
     <>
-      <p className='nav__button-text'>{currentUser.name}</p>
+      <p className='nav__button-text'>{username}</p>
       <img
         alt='logout button'
         src={isMain ? logoutIconWhite : logoutIconBlack}
@@ -24,12 +32,13 @@ function Navigation({
   );
 
   const navButtonContent = isLoggedIn ? (
-    logoutElement
+    logoutElement(currentUser)
   ) : (
     <p className='nav__button-text nav__button-text_signed-out'>
       Sign in
     </p>
   );
+
   return (
     <nav className='nav'>
       {(toggleMenu || screenWidth > 600) && (
@@ -76,9 +85,7 @@ function Navigation({
             <button
               onClick={
                 isLoggedIn
-                  ? () => {
-                      console.log('Log out logic');
-                    }
+                  ? handleLogoutClick
                   : onSigninClick
               }
               className={

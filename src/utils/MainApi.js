@@ -6,7 +6,7 @@ class Api extends React.Component {
     this._url = props.baseUrl;
   }
 
-  getUserData(token) {
+  getUserInfo(token) {
     return fetch(`${this._url}/users/me`, {
       headers: { authorization: `Bearer ${token}` },
     }).then((res) => this._getResponseData(res));
@@ -81,17 +81,6 @@ class Api extends React.Component {
     }).then((res) => this._getResponseData(res));
   };
 
-  setUserAvatar = (avatar, token) => {
-    return fetch(`${this._url}/users/me/avatar`, {
-      method: 'PATCH',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(avatar),
-    }).then((res) => this._getResponseData(res));
-  };
-
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(new Error('something Wrong'));
@@ -100,9 +89,10 @@ class Api extends React.Component {
   }
 }
 
-const api = new Api({
-  baseUrl: 'https://api.aroundbarak.students.nomoredomainssbs.ru',
+const mainApi = new Api({
+  baseUrl:
+    'https://api.barakfinalproject.students.nomoredomainssbs.ru',
 });
 
-export default api;
+export default mainApi;
 

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm({ onSearchClick }) {
   const [search, setSearch] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    onSearchClick(search);
   };
 
   const handleChange = (e) => {

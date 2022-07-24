@@ -5,7 +5,7 @@ import NothingFound from '../NothingFound/NothingFound';
 import './SearchResults.css';
 
 const SearchResults = React.memo(
-  ({ isLoggedIn, isMain }) => {
+  ({ isLoggedIn, isMain, onSearchClick }) => {
     const cardss = cards;
 
     const [deck, setDeck] = useState([]);

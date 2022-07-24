@@ -2,25 +2,30 @@ import React, { useState } from 'react';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Register.css';
 
-const Register = ({ isOpen, onClose, switchPopups }) => {
-  const [input, setInput] = useState({
+const Register = ({
+  isOpen,
+  onClose,
+  switchPopups,
+  onSubmit,
+}) => {
+  const [inputs, setInput] = useState({
     email: '',
     password: '',
-    username: '',
+    name: '',
   });
+  const [readOnly, setReadOnly] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit reg');
+    onSubmit({ inputs });
   };
 
   const handleChange = (e) => {
     const value = e.target.value;
     setInput({
-      ...input,
+      ...inputs,
       [e.target.name]: value,
     });
-    console.log('change reg input');
   };
 
   return (
@@ -36,10 +41,13 @@ const Register = ({ isOpen, onClose, switchPopups }) => {
       <input
         className='popup__input'
         placeholder='Enter email'
+        type='email'
         name='email'
-        value={'' || input.email}
+        readOnly={readOnly}
+        onFocus={() => setReadOnly(false)}
+        onBlur={() => setReadOnly(true)}
+        value={'' || inputs.email}
         maxLength='30'
-        type='text'
         onChange={handleChange}
         required
       />
@@ -47,25 +55,30 @@ const Register = ({ isOpen, onClose, switchPopups }) => {
       <input
         className='popup__input'
         placeholder='Enter password'
+        type='password'
         name='password'
-        value={'' || input.password}
+        readOnly={readOnly}
+        onFocus={() => setReadOnly(false)}
+        onBlur={() => setReadOnly(true)}
+        value={'' || inputs.password}
         maxLength='30'
         minLength='8'
-        type='text'
         onChange={handleChange}
         required
       />
-      <label className='popup__input-label'>Username</label>{' '}
+      <label className='popup__input-label'>Username</label>
       <input
         className='popup__input popup__input_type_signup'
         placeholder='Enter your username'
-        name='username'
-        value={'' || input.username}
+        name='name'
+        readOnly={readOnly}
+        onFocus={() => setReadOnly(false)}
+        onBlur={() => setReadOnly(true)}
+        value={'' || inputs.name}
         maxLength='30'
-        minLength='6'
-        type='text'
+        minLength='2'
         onChange={handleChange}
-        required></input>{' '}
+        required></input>
       <span
         id='validation-error'
         className='popup__error popup__error_visible popup__error_type_signup'>
