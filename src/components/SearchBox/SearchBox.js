@@ -2,7 +2,7 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import './SearchBox.css';
 
-function SearchBox({ onSearchClick }) {
+function SearchBox({ onSearchClick, placeholder }) {
   return (
     <section className='search'>
       <div className='search__container'>
@@ -13,7 +13,10 @@ function SearchBox({ onSearchClick }) {
           Find the latest news on any topic and save them in
           your personal account.
         </p>
-        <SearchForm onSearchClick={onSearchClick} />
+        <SearchForm
+          placeholder={placeholder}
+          onSearchClick={onSearchClick}
+        />
       </div>
     </section>
   );

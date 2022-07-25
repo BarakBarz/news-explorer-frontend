@@ -7,7 +7,6 @@ const NewsCard = ({ isLoggedIn, article, isMain }) => {
   const [isArticleSaved, setIsArticleSaved] =
     useState(false);
 
-  console.log(article);
   const saveButtonClick = (e) => {
     e.stopPropagation();
     setIsArticleSaved(!isArticleSaved);

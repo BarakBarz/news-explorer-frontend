@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 
-function SearchForm({ onSearchClick }) {
+function SearchForm({ onSearchClick, placeholder }) {
   const [search, setSearch] = useState('');
 
   const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ function SearchForm({ onSearchClick }) {
       <input
         onChange={handleChange}
         type='text'
-        placeholder='Enter topic'
+        placeholder={placeholder}
         value={'' || search}
         className='form__input'></input>
       <button className='form__button'>Search</button>

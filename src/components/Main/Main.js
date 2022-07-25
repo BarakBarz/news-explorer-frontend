@@ -10,18 +10,27 @@ const Main = ({
   isMain,
   onSearchClick,
   articles,
+  placeholder,
+  showSearchResults,
 }) => {
   return (
     <main>
-      <SearchBox onSearchClick={onSearchClick} />
-      {!preloader ? (
-        <SearchResults
-          isLoggedIn={isLoggedIn}
-          isMain={isMain}
-          articles={articles}
-        />
-      ) : (
-        <PreLoader />
+      <SearchBox
+        placeholder={placeholder}
+        onSearchClick={onSearchClick}
+      />
+      {showSearchResults && (
+        <>
+          {!preloader ? (
+            <SearchResults
+              isLoggedIn={isLoggedIn}
+              isMain={isMain}
+              articles={articles}
+            />
+          ) : (
+            <PreLoader />
+          )}
+        </>
       )}
       <About />
     </main>

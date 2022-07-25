@@ -27,17 +27,20 @@ const App = () => {
   const [preloader, setPreloader] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
+  const [placeholder, setPlaceholder] =
+    useState('Enter Topic');
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] =
+    useState(false);
+  const [showSearchResults, setShowSearchResults] =
     useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [userToken, setUserToken] = useState(
     localStorage.getItem('token')
   );
+  // localStorage.removeItem('articles');
   const [articles, setArticles] = useState(
-    localStorage.getItem('articles')
+    JSON.parse(localStorage.getItem('articles'))
   );
-
-  console.log({ articles });
 
   const isMain = usePathname() === '/';
 
@@ -70,20 +73,28 @@ const App = () => {
           setIsLoggedIn(false);
         });
     }
-  }, [isLoggedIn, userToken, articles]);
+  }, [isLoggedIn, userToken]);
 
-  const handleSearchButton = (keyword) => {
-    setPreloader(true);
-    newsApi
-      .getNewsArticles(encodeURIComponent(keyword))
-      .then((data) => {
-        setArticles(data.articles);
-        localStorage.setItem('articles', data.articles);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => setPreloader(false));
+  useEffect(() => {
+    if (articles) {
+      setShowSearchResults(true);
+    }
+  }, [articles]);
+
+  const closeAllPopups = () => {
+    setIsSigninOpen(false);
+    setIsSignupOpen(false);
+    setIsSuccessPopupOpen(false);
+  };
+
+  const switchBetweenPopups = () => {
+    if (!isSuccessPopupOpen) {
+      setIsSigninOpen(!isSigninOpen);
+      setIsSignupOpen(!isSignupOpen);
+    } else {
+      setIsSigninOpen(!isSigninOpen);
+      setIsSuccessPopupOpen(!isSuccessPopupOpen);
+    }
   };
 
   const handleSignupClick = () => {
@@ -94,21 +105,25 @@ const App = () => {
     setIsSignupOpen(true);
   };
 
-  const closeAllPopups = () => {
-    setIsSigninOpen(false);
-    setIsSignupOpen(false);
-    setIsSuccessPopupOpen(false);
-  };
+  const handleSearchButton = (keyword) => {
+    setPreloader(true);
+    setShowSearchResults(true);
+    localStorage.removeItem('articles');
+    setArticles(null);
+    newsApi
+      .getNewsArticles(encodeURIComponent(keyword))
 
-  const switchBetweenPopups = () => {
-    debugger;
-    if (!isSuccessPopupOpen) {
-      setIsSigninOpen(!isSigninOpen);
-      setIsSignupOpen(!isSignupOpen);
-    } else {
-      setIsSigninOpen(!isSigninOpen);
-      setIsSuccessPopupOpen(!isSuccessPopupOpen);
-    }
+      .then((data) => {
+        setArticles(data.articles);
+        localStorage.setItem(
+          'articles',
+          JSON.stringify(data.articles)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => setPreloader(false));
   };
 
   const handleRegistration = ({ inputs }) => {
@@ -196,7 +211,9 @@ const App = () => {
               isLoggedIn={isLoggedIn}
               preloader={preloader}
               isMain={isMain}
+              placeholder={placeholder}
               articles={articles}
+              showSearchResults={showSearchResults}
             />
           </Route>
           <Route exact path='/saved-news'>
