@@ -1,28 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import cards from '../../data/cards';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import NothingFound from '../NothingFound/NothingFound';
 import './SearchResults.css';
 
 const SearchResults = React.memo(
-  ({ isLoggedIn, isMain, onSearchClick }) => {
-    const cardss = cards;
-
-    const [deck, setDeck] = useState([]);
+  ({ isLoggedIn, isMain, articles }) => {
     const [count, setCount] = useState(3);
-
-    useEffect(() => {
-      if (!cardss) {
-        setDeck([]);
-        return;
-      } else if (deck.length === 0 && cardss.length > 0) {
-        setDeck(...deck, cardss);
-      }
-    }, [count]);
 
     return (
       <section className='results'>
-        {!cards ? (
+        {!articles ? (
           <NothingFound></NothingFound>
         ) : (
           <>
@@ -30,13 +17,13 @@ const SearchResults = React.memo(
               Search results
             </h2>
             <NewsCardList
-              deck={cardss}
+              articles={articles}
               isLoggedIn={isLoggedIn}
               isMain={isMain}
               count={count}
             />
 
-            {count < cards.length && (
+            {count < articles.length && (
               <button
                 className='results__more-button'
                 onClick={() => setCount(count + 3)}>

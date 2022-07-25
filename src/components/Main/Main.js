@@ -9,6 +9,7 @@ const Main = ({
   preloader,
   isMain,
   onSearchClick,
+  articles,
 }) => {
   return (
     <main>
@@ -17,6 +18,7 @@ const Main = ({
         <SearchResults
           isLoggedIn={isLoggedIn}
           isMain={isMain}
+          articles={articles}
         />
       ) : (
         <PreLoader />

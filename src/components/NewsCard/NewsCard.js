@@ -3,10 +3,11 @@ import CardButtonSave from '../CardButton/CardButtonSave';
 import CardButtonDelete from '../CardButton/CardButtonDelete';
 import './NewsCard.css';
 
-const NewsCard = ({ isLoggedIn, card, isMain }) => {
+const NewsCard = ({ isLoggedIn, article, isMain }) => {
   const [isArticleSaved, setIsArticleSaved] =
     useState(false);
 
+  console.log(article);
   const saveButtonClick = (e) => {
     e.stopPropagation();
     setIsArticleSaved(!isArticleSaved);
@@ -43,24 +44,26 @@ const NewsCard = ({ isLoggedIn, card, isMain }) => {
 
       <img
         className='article-card__img'
-        src={card.image}
+        src={article.urlToImage}
         alt='article'
       />
 
       <div className='article-card__info'>
-        <p className='article-card__date'>{card.date}</p>
+        <p className='article-card__date'>
+          {article.publishedAt}
+        </p>
         <h3 className='article-card__title'>
-          {card.title}
+          {article.title}
         </h3>
         <blockquote
-          cite={card.source}
+          cite={article.source.id}
           className='article-card__text-content'>
-          {card.text}
+          {article.description}
         </blockquote>
         <a
-          href={card.link}
+          href={article.url}
           className='article-card__source'>
-          {card.source}
+          {article.source.name}
         </a>
       </div>
     </li>

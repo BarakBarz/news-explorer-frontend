@@ -5,18 +5,18 @@ import './NewsCardList.css';
 
 const NewsCardList = ({
   isLoggedIn,
-  deck,
+  articles,
   count,
   isMain,
 }) => {
   return (
     <section className='news-cards-list'>
       <ul className='news-cards-list__cards'>
-        {deck.slice(0, count).map((card, index) => (
+        {articles.slice(0, count).map((article, index) => (
           <NewsCard
             key={index}
             isLoggedIn={isLoggedIn}
-            card={card}
+            article={article}
             isMain={isMain}
           />
         ))}

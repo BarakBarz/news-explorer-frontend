@@ -43,6 +43,7 @@
   max-width: 100%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  height: 252px;
 }
 
 .article-card__info {
@@ -108,6 +109,10 @@
     height: 72px;
   }
 
+  .article-card__img {
+    height: 150px;
+  }
+
   .article-card__button-container {
     top: 8px;
     right: 8px;
@@ -129,6 +134,10 @@
   .article-card__button-container {
     top: 16px;
     right: 16px;
+  }
+
+  .article-card__img {
+    height: 196px;
   }
 
   .article-card__keyword-container {

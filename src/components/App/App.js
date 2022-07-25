@@ -6,10 +6,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {
-  history,
-  usePathname,
-} from '../../utils/constants';
+import { usePathname } from '../../utils/constants';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
@@ -20,18 +17,28 @@ import newsApi from '../../utils/NewsApi';
 import * as auth from '../../utils/auth';
 import { CurrentUserProvider } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import PopupSuccess from '../PopupSuccess/PopupSuccess';
 
 const App = () => {
   const history = useHistory();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
   const [preloader, setPreloader] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [isSuccessPopupOpen, setIsSuccessPopupOpen] =
+    useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [userToken, setUserToken] = useState(
     localStorage.getItem('token')
   );
+  const [articles, setArticles] = useState(
+    localStorage.getItem('articles')
+  );
+
+  console.log({ articles });
+
   const isMain = usePathname() === '/';
 
   useEffect(() => {
@@ -63,34 +70,55 @@ const App = () => {
           setIsLoggedIn(false);
         });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userToken, articles]);
 
   const handleSearchButton = (keyword) => {
+    setPreloader(true);
     newsApi
       .getNewsArticles(encodeURIComponent(keyword))
-      .then((articles) => console.log(articles))
-      .catch((e) => console.log(e));
+      .then((data) => {
+        setArticles(data.articles);
+        localStorage.setItem('articles', data.articles);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => setPreloader(false));
   };
 
   const handleSignupClick = () => {
+    if (isRegistered) {
+      setIsSigninOpen(true);
+      return;
+    }
     setIsSignupOpen(true);
   };
 
   const closeAllPopups = () => {
     setIsSigninOpen(false);
     setIsSignupOpen(false);
+    setIsSuccessPopupOpen(false);
   };
 
   const switchBetweenPopups = () => {
-    setIsSigninOpen(!isSigninOpen);
-    setIsSignupOpen(!isSignupOpen);
+    debugger;
+    if (!isSuccessPopupOpen) {
+      setIsSigninOpen(!isSigninOpen);
+      setIsSignupOpen(!isSignupOpen);
+    } else {
+      setIsSigninOpen(!isSigninOpen);
+      setIsSuccessPopupOpen(!isSuccessPopupOpen);
+    }
   };
 
   const handleRegistration = ({ inputs }) => {
     auth
       .register(inputs)
       .then((res) => {
-        if (res) {
+        if (res._id) {
+          setIsRegistered(true);
+          setIsSignupOpen(false);
+          setIsSuccessPopupOpen(true);
         }
       })
       .catch((e) => {
@@ -106,17 +134,11 @@ const App = () => {
           setUserToken(data.token);
           localStorage.setItem('token', data.token);
         }
-        mainApi
-          .getUserInfo(data.token)
-          .catch((e) => {
-            console.log(e);
-          })
-          .finally((res) => console.log('res', res));
       })
       .catch((e) => {
         console.log(e);
       })
-      .finally((res) => {
+      .finally(() => {
         closeAllPopups();
         setIsLoggedIn(true);
       });
@@ -124,8 +146,8 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setUserToken({});
-    setCurrentUser({});
+    setUserToken(undefined);
+    setCurrentUser(null);
     setIsLoggedIn(false);
     history.push('/');
   };
@@ -149,6 +171,7 @@ const App = () => {
         <Switch>
           <Route exact path='/'>
             <Register
+              isRegistered={isRegistered}
               isOpen={isSignupOpen}
               onClose={closeAllPopups}
               switchPopups={switchBetweenPopups}
@@ -160,11 +183,20 @@ const App = () => {
               switchPopups={switchBetweenPopups}
               onSubmit={handleLogin}
             />
+            <PopupSuccess
+              onClose={closeAllPopups}
+              buttonText='Sign in'
+              title='Registration successfully completed!'
+              name='success'
+              isOpen={isSuccessPopupOpen}
+              switchPopups={switchBetweenPopups}
+            />
             <Main
               onSearchClick={handleSearchButton}
               isLoggedIn={isLoggedIn}
               preloader={preloader}
               isMain={isMain}
+              articles={articles}
             />
           </Route>
           <Route exact path='/saved-news'>

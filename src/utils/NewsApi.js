@@ -5,16 +5,14 @@ class NewsApi extends React.Component {
     super(props);
     this._url = props.baseUrl;
     this._apiKey = 'fd7fae9dfd3c428a88dc3107804dc426';
-    this._date = new Date();
   }
 
   _fromTo = () => {
-    const now = this._date.toISOString().slice(0, 10);
+    const date = new Date();
+    const now = date.toISOString().slice(0, 10);
 
-    this._date.setDate(this._date.getDate() - 7);
-    const sevenDaysAgo = this._date
-      .toISOString()
-      .slice(0, 10);
+    date.setDate(date.getDate() - 7);
+    const sevenDaysAgo = date.toISOString().slice(0, 10);
 
     return `from=${sevenDaysAgo}&to=${now}`;
   };
