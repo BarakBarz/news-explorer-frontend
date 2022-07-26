@@ -20,17 +20,21 @@ const App = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [preloader, setPreloader] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
+  const [preloader, setPreloader] = useState(false);
   const [placeholder, setPlaceholder] = useState('Enter Topic');
   const [showNothingFound, setShowNothingFound] = useState(false);
+
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
+
   const [showSearchResults, setShowSearchResults] = useState(false);
+
   const [showServerError, setShowServerError] = useState(false);
   const [currentKeyword, setCurrentKeyword] = useState(
     localStorage.getItem('keyword')
   );
+  const [isArticleSaved, setIsArticleSaved] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [collection, setCollection] = useState([]);
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
@@ -131,9 +135,11 @@ const App = () => {
     setCurrentKeyword(keyword);
     localStorage.removeItem('articles');
     setArticles(null);
+
     if (showServerError === true) {
       setShowServerError(false);
     }
+
     if (!keyword) {
       setPlaceholder('Please enter a keyword');
       setShowSearchResults(false);
@@ -164,20 +170,34 @@ const App = () => {
       .finally(() => setPreloader(false));
   };
 
-  const handleSaveArticle = (article) => {
-    console.log(currentKeyword);
-    console.table(article);
-    const sourceName = article.source.name;
-    const {
-      title,
-      description: text,
-      link: url,
-      sourceName: source,
-      publishedAt: date,
-      urlToImage: image,
-    } = article;
+  const handleSaveArticle = (
+    e,
+    { title, text, source, link, date, image },
+    article
+  ) => {
+    console.log(article);
 
-    console.log(title, text, url, source, date, image);
+    // get saved articles, put in localstorage as state collection to save time
+    // if in local storage, skip the getarticles
+    // if saved must delete collection from localstorage and state
+    // compare link from collection article to link from article itself. with.some on the saved collection
+    // if a match, delete if no match, save article.
+    //change button accordingly.
+
+    const isSaved = article.url === link;
+
+    console.log(isSaved);
+    // mainApi
+    //   .saveArticle(
+    //     { keyword: currentKeyword, title, text, source, link, date, image },
+    //     userToken
+    //   )
+    //   .then((res) => {
+    //     res.link;
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   };
 
   return (
@@ -222,6 +242,7 @@ const App = () => {
               isMain={isMain}
               placeholder={placeholder}
               articles={articles}
+              isArticleSaved={isArticleSaved}
               onSaveClick={handleSaveArticle}
               showSearchResults={showSearchResults}
               showNothingFound={showNothingFound}

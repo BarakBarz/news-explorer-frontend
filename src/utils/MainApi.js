@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Api extends React.Component {
+class MainApi extends React.Component {
   constructor(props) {
     super(props);
     this._url = props.baseUrl;
@@ -18,6 +18,17 @@ class Api extends React.Component {
     }).then((res) => this._getResponseData(res));
   }
 
+  saveArticle(article, token) {
+    return fetch(`${this._url}/articles`, {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(article),
+    }).then((res) => this._getResponseData(res));
+  }
+
   setUserInfo(name, about, token) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -29,17 +40,6 @@ class Api extends React.Component {
         name: name,
         about: about,
       }),
-    }).then((res) => this._getResponseData(res));
-  }
-
-  addNewCard(card, token) {
-    return fetch(`${this._url}/cards`, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify(card),
     }).then((res) => this._getResponseData(res));
   }
 
@@ -89,7 +89,7 @@ class Api extends React.Component {
   }
 }
 
-const mainApi = new Api({
+const mainApi = new MainApi({
   baseUrl: 'https://api.barakfinalproject.students.nomoredomainssbs.ru',
 });
 

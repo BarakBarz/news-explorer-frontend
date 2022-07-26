@@ -4,7 +4,14 @@ import NewsCard from '../NewsCard/NewsCard';
 
 import './NewsCardList.css';
 
-const NewsCardList = ({ isLoggedIn, articles, count, isMain, onSaveClick }) => {
+const NewsCardList = ({
+  isLoggedIn,
+  articles,
+  count,
+  isMain,
+  onSaveClick,
+  isArticleSaved,
+}) => {
   return (
     <section className='news-cards-list'>
       <ul className='news-cards-list__cards'>
@@ -14,6 +21,7 @@ const NewsCardList = ({ isLoggedIn, articles, count, isMain, onSaveClick }) => {
             key={index}
             isLoggedIn={isLoggedIn}
             article={article}
+            isArticleSaved={isArticleSaved}
             isMain={isMain}
           />
         ))}

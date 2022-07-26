@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardButtonSave from '../CardButton/CardButtonSave';
 import CardButtonDelete from '../CardButton/CardButtonDelete';
 import './NewsCard.css';
 
-const NewsCard = ({ isLoggedIn, isMain, onSaveClick, article }) => {
-  const [isArticleSaved, setIsArticleSaved] = useState(false);
-
+const NewsCard = ({
+  isLoggedIn,
+  isMain,
+  onSaveClick,
+  article,
+  isArticleSaved,
+}) => {
   const formatDateFromResult = (publishDate) => {
     const months = [
       'January',
@@ -32,8 +36,7 @@ const NewsCard = ({ isLoggedIn, isMain, onSaveClick, article }) => {
 
   const saveButtonClick = (e) => {
     e.stopPropagation();
-    onSaveClick(article);
-    setIsArticleSaved(!isArticleSaved);
+    onSaveClick(e, { title, text, source, link, date, image }, article);
   };
 
   const deleteButtonClick = (e) => {
@@ -41,31 +44,14 @@ const NewsCard = ({ isLoggedIn, isMain, onSaveClick, article }) => {
     // api request
   };
 
-  let title;
-  let text;
-  let link;
-  let source;
-  let date;
-  let image;
-  let keyword;
-  let _id;
-
-  if (isMain) {
-    title = article.title;
-    text = article.description;
-    source = article.source;
-    link = article.url;
-    date = article.publishedAt;
-    image = article.urlToImage;
-
-    console.table(title, text, link, source, date, image);
-
-    return title, text, source, link, date, image;
-  } else {
-    const { keyword, title, text, link, source, date, image, _id } = article;
-  }
-
-  console.table(keyword, title, text, link, source, date, image, _id);
+  let title = article.title;
+  let text = article.description || article.text;
+  let source = article.source.name || article.source;
+  let link = article.url || article.link;
+  let date = article.publishedAt || article.date;
+  let image = article.urlToImage || article.image;
+  let keyword = undefined || article.keyword;
+  let _id = undefined || article._id;
 
   const keywordElement = !isMain && (
     <div className='article-card__keyword-container'>
