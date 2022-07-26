@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PopupSuccess from '../PopupSuccess/PopupSuccess';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 
 import './Register.css';
@@ -9,13 +8,13 @@ const Register = ({
   onClose,
   switchPopups,
   onSubmit,
-  isRegistered,
 }) => {
   const [inputs, setInput] = useState({
     email: '',
     password: '',
     name: '',
   });
+
   const [readOnly, setReadOnly] = useState(true);
 
   const handleSubmit = (e) => {

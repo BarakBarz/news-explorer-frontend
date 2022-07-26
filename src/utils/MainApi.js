@@ -12,6 +12,12 @@ class Api extends React.Component {
     }).then((res) => this._getResponseData(res));
   }
 
+  getArticleCollection(token) {
+    return fetch(`${this._url}/articles`, {
+      headers: { authorization: `Bearer ${token}` },
+    }).then((res) => this._getResponseData(res));
+  }
+
   setUserInfo(name, about, token) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -26,12 +32,6 @@ class Api extends React.Component {
     }).then((res) => this._getResponseData(res));
   }
 
-  getInitialCards(token) {
-    return fetch(`${this._url}/cards`, {
-      headers: { authorization: `Bearer ${token}` },
-    }).then((res) => this._getResponseData(res));
-  }
-
   addNewCard(card, token) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
@@ -41,24 +41,6 @@ class Api extends React.Component {
       },
       body: JSON.stringify(card),
     }).then((res) => this._getResponseData(res));
-  }
-
-  removeUserCard = (cardId, token) => {
-    return fetch(`${this._url}/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
-    }).then((res) => this._getResponseData(res));
-  };
-
-  changeLikeCardStatus(cardId, isNotLiked, token) {
-    if (isNotLiked) {
-      return this.addLike(cardId, token);
-    } else {
-      return this.removeLike(cardId, token);
-    }
   }
 
   addLike = (cardId, token) => {
@@ -81,6 +63,24 @@ class Api extends React.Component {
     }).then((res) => this._getResponseData(res));
   };
 
+  removeUserCard = (cardId, token) => {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+    }).then((res) => this._getResponseData(res));
+  };
+
+  changeLikeCardStatus(cardId, isNotLiked, token) {
+    if (isNotLiked) {
+      return this.addLike(cardId, token);
+    } else {
+      return this.removeLike(cardId, token);
+    }
+  }
+
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(new Error('something Wrong'));
@@ -90,8 +90,7 @@ class Api extends React.Component {
 }
 
 const mainApi = new Api({
-  baseUrl:
-    'https://api.barakfinalproject.students.nomoredomainssbs.ru',
+  baseUrl: 'https://api.barakfinalproject.students.nomoredomainssbs.ru',
 });
 
 export default mainApi;

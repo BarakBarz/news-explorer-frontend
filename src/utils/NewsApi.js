@@ -9,7 +9,6 @@ class NewsApi extends React.Component {
 
   _fromTo = () => {
     const date = new Date();
-    console.log(date);
     const now = date.toISOString().slice(0, 10);
 
     date.setDate(date.getDate() - 7);

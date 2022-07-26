@@ -1,21 +1,24 @@
 import React from 'react';
-import cards from '../../data/cards';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import './SavedNews.css';
 
-const SavedNews = ({ isLoggedIn, isMain }) => {
-  const cardss = cards;
+const SavedNews = ({ isLoggedIn, isMain, collection }) => {
+  const isSavedNewsListEmpty = collection.length === 0;
 
   return (
     <main>
-      <SavedNewsHeader />
-      <NewsCardList
-        deck={cardss}
-        count={cardss.length}
-        isLoggedIn={isLoggedIn}
-        isMain={isMain}
-      />
+      <SavedNewsHeader collection={collection} />
+      {isSavedNewsListEmpty ? (
+        <></>
+      ) : (
+        <NewsCardList
+          articles={collection}
+          count={collection.length}
+          isLoggedIn={isLoggedIn}
+          isMain={isMain}
+        />
+      )}
     </main>
   );
 };

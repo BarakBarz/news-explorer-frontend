@@ -3,6 +3,8 @@
   "editor.wordWrapColumn": 120,
   "diffEditor.wordWrap": "on",
   "prettier.proseWrap": "always",
-  "prettier.printWidth": 60,
-  "markdown.preview.breaks": true
+  "prettier.printWidth": 80,
+  "markdown.preview.breaks": true,
+  "editor.fontFamily": "Consolas, 'Courier New', monospace",
+  "editor.fontSize": 18
 }

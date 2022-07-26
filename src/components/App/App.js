@@ -1,10 +1,5 @@
-import './App.css';
 import Header from '../Header/Header';
-import {
-  Switch,
-  Route,
-  useHistory,
-} from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { usePathname } from '../../utils/constants';
 import Main from '../Main/Main';
@@ -18,6 +13,7 @@ import * as auth from '../../utils/auth';
 import { CurrentUserProvider } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import PopupSuccess from '../PopupSuccess/PopupSuccess';
+import './App.css';
 
 const App = () => {
   const history = useHistory();
@@ -27,38 +23,23 @@ const App = () => {
   const [preloader, setPreloader] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
-  const [placeholder, setPlaceholder] =
-    useState('Enter Topic');
-  const [isSuccessPopupOpen, setIsSuccessPopupOpen] =
-    useState(false);
-  const [showSearchResults, setShowSearchResults] =
-    useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userToken, setUserToken] = useState(
-    localStorage.getItem('token')
+  const [placeholder, setPlaceholder] = useState('Enter Topic');
+  const [showNothingFound, setShowNothingFound] = useState(false);
+  const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showServerError, setShowServerError] = useState(false);
+  const [currentKeyword, setCurrentKeyword] = useState(
+    localStorage.getItem('keyword')
   );
+  const [currentUser, setCurrentUser] = useState(null);
+  const [collection, setCollection] = useState([]);
+  const [userToken, setUserToken] = useState(localStorage.getItem('token'));
   // localStorage.removeItem('articles');
   const [articles, setArticles] = useState(
     JSON.parse(localStorage.getItem('articles'))
   );
 
   const isMain = usePathname() === '/';
-
-  useEffect(() => {
-    const closeByEscape = (e) => {
-      if (e.key === 'Escape') {
-        closeAllPopups();
-      }
-    };
-
-    document.addEventListener('keydown', closeByEscape);
-
-    return () =>
-      document.removeEventListener(
-        'keydown',
-        closeByEscape
-      );
-  }, []);
 
   useEffect(() => {
     if (userToken) {
@@ -105,27 +86,6 @@ const App = () => {
     setIsSignupOpen(true);
   };
 
-  const handleSearchButton = (keyword) => {
-    setPreloader(true);
-    setShowSearchResults(true);
-    localStorage.removeItem('articles');
-    setArticles(null);
-    newsApi
-      .getNewsArticles(encodeURIComponent(keyword))
-
-      .then((data) => {
-        setArticles(data.articles);
-        localStorage.setItem(
-          'articles',
-          JSON.stringify(data.articles)
-        );
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => setPreloader(false));
-  };
-
   const handleRegistration = ({ inputs }) => {
     auth
       .register(inputs)
@@ -148,15 +108,14 @@ const App = () => {
         if (data.token) {
           setUserToken(data.token);
           localStorage.setItem('token', data.token);
+          setIsLoggedIn(true);
+          closeAllPopups();
         }
       })
       .catch((e) => {
         console.log(e);
       })
-      .finally(() => {
-        closeAllPopups();
-        setIsLoggedIn(true);
-      });
+      .finally(() => {});
   };
 
   const handleLogout = () => {
@@ -167,15 +126,65 @@ const App = () => {
     history.push('/');
   };
 
+  const handleSearchButton = (keyword) => {
+    localStorage.setItem('keyword', keyword);
+    setCurrentKeyword(keyword);
+    localStorage.removeItem('articles');
+    setArticles(null);
+    if (showServerError === true) {
+      setShowServerError(false);
+    }
+    if (!keyword) {
+      setPlaceholder('Please enter a keyword');
+      setShowSearchResults(false);
+      setArticles(null);
+      return;
+    }
+
+    setPlaceholder('Enter Topic');
+    setShowNothingFound(false);
+    setShowSearchResults(true);
+    setPreloader(true);
+
+    newsApi
+      .getNewsArticles(encodeURIComponent(keyword))
+      .then((data) => {
+        if (data.totalResults === 0) {
+          return setShowNothingFound(true);
+        }
+
+        setArticles(data.articles);
+
+        localStorage.setItem('articles', JSON.stringify(data.articles));
+      })
+      .catch((e) => {
+        console.log(e);
+        setShowServerError(true);
+      })
+      .finally(() => setPreloader(false));
+  };
+
+  const handleSaveArticle = (article) => {
+    console.log(currentKeyword);
+    console.table(article);
+    const sourceName = article.source.name;
+    const {
+      title,
+      description: text,
+      link: url,
+      sourceName: source,
+      publishedAt: date,
+      urlToImage: image,
+    } = article;
+
+    console.log(title, text, url, source, date, image);
+  };
+
   return (
     <CurrentUserProvider value={currentUser}>
       <div className='wrapper'>
         {isMain && (
-          <img
-            className='background'
-            src={background}
-            alt='background'
-          />
+          <img className='background' src={background} alt='background' />
         )}
         <Header
           onLogoutClick={handleLogout}
@@ -213,13 +222,17 @@ const App = () => {
               isMain={isMain}
               placeholder={placeholder}
               articles={articles}
+              onSaveClick={handleSaveArticle}
               showSearchResults={showSearchResults}
+              showNothingFound={showNothingFound}
+              showServerError={showServerError}
             />
           </Route>
           <Route exact path='/saved-news'>
             <SavedNews
               isLoggedIn={isLoggedIn}
               isMain={isMain}
+              collection={collection}
             />
           </Route>
         </Switch>
