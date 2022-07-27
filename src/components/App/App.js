@@ -60,7 +60,7 @@ const App = () => {
 
     if (isLoggedIn) {
       getUserSavedArticles().then((res) => {
-        setSavedArticles(res);
+        setSavedArticles(res.reverse());
       });
     }
   }, [isLoggedIn, userToken]);
@@ -136,6 +136,7 @@ const App = () => {
 
   const handleLogout = () => {
     clearAllUserData();
+    setIsRegistered(true);
     history.push('/');
   };
 

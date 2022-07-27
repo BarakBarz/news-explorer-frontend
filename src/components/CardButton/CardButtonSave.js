@@ -10,7 +10,13 @@ const CardButtonSave = ({ isLoggedIn, saveButtonClick, isSaved }) => {
   return (
     <>
       <button
-        onClick={(e) => handleClick(e)}
+        onClick={
+          isLoggedIn
+            ? (e) => handleClick(e)
+            : (e) => {
+                e.stopPropagation();
+              }
+        }
         className={
           isLoggedIn && isSaved
             ? 'button button_type_save button_type_save_active'

@@ -40,6 +40,7 @@
 
 .article-card__img {
   display: block;
+  min-width: 100%;
   max-width: 100%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -97,6 +98,13 @@
   text-overflow: ellipsis;
 }
 
+@media screen and (max-width: 1294px) {
+  .article-card__button-container {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
 @media screen and (max-width: 920px) {
   .article-card__info {
     padding: 16px;
@@ -133,6 +141,8 @@
   .article-card__button-container {
     top: 16px;
     right: 16px;
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .article-card__img {
@@ -142,5 +152,6 @@
   .article-card__keyword-container {
     top: 16px;
     left: 16px;
+    padding: 8px 14.5px;
   }
 }

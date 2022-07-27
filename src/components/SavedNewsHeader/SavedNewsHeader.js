@@ -5,24 +5,29 @@ import './SavedNewsHeader.css';
 const SavedNewsHeader = ({ savedArticles }) => {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const keywordCounter = [];
-  savedArticles.forEach((article) => {
-    keywordCounter[article.keyword] =
-      (keywordCounter[article.keyword] || 0) + 1;
-  });
+  const sortKeywordByPopularity = () => {
+    const keywordCounter = [];
+    savedArticles.forEach((article) => {
+      keywordCounter[article.keyword] =
+        (keywordCounter[article.keyword] || 0) + 1;
+    });
 
-  const reducedKeywordsList = Object.keys(keywordCounter).sort(
-    (a, b) => parseFloat(b) - parseFloat(a)
-  );
-  let keywords;
-  if (reducedKeywordsList <= 3) {
-    keywords = reducedKeywordsList.slice(0, 3);
-  } else {
-    keywords = reducedKeywordsList.slice(0, 2);
-  }
+    const sortedKeywordsFromHighTolow = Object.keys(keywordCounter).sort(
+      (a, b) => parseFloat(b) - parseFloat(a)
+    );
 
-  console.log(keywords);
-  console.log({ reducedKeywordsList });
+    let keywords;
+
+    if (sortedKeywordsFromHighTolow <= 3) {
+      keywords = sortedKeywordsFromHighTolow.slice(0, 3);
+    } else {
+      keywords = sortedKeywordsFromHighTolow.slice(0, 2);
+      keywords.push(`and ${sortedKeywordsFromHighTolow.length - 2} more`);
+    }
+    keywords = keywords.map((key) => ' ' + key);
+
+    return keywords;
+  };
 
   return (
     <section className='saved-news-header'>
@@ -33,7 +38,7 @@ const SavedNewsHeader = ({ savedArticles }) => {
       <p className='saved-news-header__keywords-used'>
         {`By ${savedArticles.length === 0 ? 'no keywords' : 'keywords:'}`}
         <span className='saved-news-header__bold-keyword'>
-          {`${savedArticles.length === 0 ? '' : `{keywordsList}`}`}
+          {`${savedArticles.length === 0 ? '' : sortKeywordByPopularity()}`}
         </span>
       </p>
     </section>
