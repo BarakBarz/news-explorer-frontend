@@ -14,14 +14,14 @@ const SavedNewsHeader = ({ savedArticles }) => {
   const reducedKeywordsList = Object.keys(keywordCounter).sort(
     (a, b) => parseFloat(b) - parseFloat(a)
   );
-
+  let keywords;
   if (reducedKeywordsList <= 3) {
-    reducedKeywordsList.slice(2);
+    keywords = reducedKeywordsList.slice(0, 3);
   } else {
-    reducedKeywordsList.slice(1);
+    keywords = reducedKeywordsList.slice(0, 2);
   }
 
-  console.log(keywordCounter);
+  console.log(keywords);
   console.log({ reducedKeywordsList });
 
   return (
