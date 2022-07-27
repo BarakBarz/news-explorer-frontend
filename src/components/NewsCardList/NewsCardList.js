@@ -9,20 +9,20 @@ const NewsCardList = ({
   articles,
   count,
   isMain,
-  onSaveClick,
-  isArticleSaved,
+  onCardButtonClick,
+  savedArticles,
 }) => {
   return (
     <section className='news-cards-list'>
       <ul className='news-cards-list__cards'>
         {articles.slice(0, count).map((article, index) => (
           <NewsCard
-            onSaveClick={onSaveClick}
             key={index}
             isLoggedIn={isLoggedIn}
             article={article}
-            isArticleSaved={isArticleSaved}
             isMain={isMain}
+            savedArticles={savedArticles}
+            onCardButtonClick={onCardButtonClick}
           />
         ))}
       </ul>

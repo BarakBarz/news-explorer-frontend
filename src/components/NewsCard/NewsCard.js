@@ -6,9 +6,9 @@ import './NewsCard.css';
 const NewsCard = ({
   isLoggedIn,
   isMain,
-  onSaveClick,
+  onCardButtonClick,
   article,
-  isArticleSaved,
+  savedArticles,
 }) => {
   const formatDateFromResult = (publishDate) => {
     const months = [
@@ -34,14 +34,9 @@ const NewsCard = ({
     return `${months[month]} ${dt}, ${year}`;
   };
 
-  const saveButtonClick = (e) => {
+  const buttonClick = (e) => {
     e.stopPropagation();
-    onSaveClick(e, { title, text, source, link, date, image }, article);
-  };
-
-  const deleteButtonClick = (e) => {
-    e.stopPropagation();
-    // api request
+    onCardButtonClick(isSaved, { title, text, source, link, date, image, _id });
   };
 
   let title = article.title;
@@ -59,6 +54,17 @@ const NewsCard = ({
     </div>
   );
 
+  function checkIsArticleSaved(savedArticle) {
+    if (savedArticle.link === article.url) {
+      _id = savedArticle._id;
+      return _id;
+    }
+  }
+
+  const isSaved = isMain
+    ? savedArticles.some((savedArticle) => checkIsArticleSaved(savedArticle))
+    : true;
+
   return (
     <li
       className='article-card'
@@ -69,13 +75,13 @@ const NewsCard = ({
       <div className='article-card__button-container'>
         {isMain ? (
           <CardButtonSave
-            saveButtonClick={saveButtonClick}
-            isArticleSaved={isArticleSaved}
+            saveButtonClick={buttonClick}
             isLoggedIn={isLoggedIn}
+            isSaved={isSaved}
             isMain={isMain}
           />
         ) : (
-          <CardButtonDelete deleteButtonClick={deleteButtonClick} />
+          <CardButtonDelete deleteButtonClick={buttonClick} />
         )}
       </div>
 

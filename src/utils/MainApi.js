@@ -29,6 +29,16 @@ class MainApi extends React.Component {
     }).then((res) => this._getResponseData(res));
   }
 
+  removeSavedArticle = (articleId, token) => {
+    return fetch(`${this._url}/articles/${articleId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+    }).then((res) => this._getResponseData(res));
+  };
+
   setUserInfo(name, about, token) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -46,16 +56,6 @@ class MainApi extends React.Component {
   addLike = (cardId, token) => {
     return fetch(`${this._url}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'content-type': 'application/json',
-      },
-    }).then((res) => this._getResponseData(res));
-  };
-
-  removeLike = (cardId, token) => {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: 'DELETE',
       headers: {
         authorization: `Bearer ${token}`,
         'content-type': 'application/json',

@@ -1,23 +1,39 @@
 import React from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './SavedNewsHeader.css';
 
-const SavedNewsHeader = ({ collection }) => {
-  const keywordCounter = (collection) => {
-    // take collection and sort keywordsby popularity
-    // if keywords.length is 3 or smaller, display all keywords
-    // if keywords.length is larger than 3, display first 2 and # of remaining keywords.
-  };
+const SavedNewsHeader = ({ savedArticles }) => {
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const keywordCounter = [];
+  savedArticles.forEach((article) => {
+    keywordCounter[article.keyword] =
+      (keywordCounter[article.keyword] || 0) + 1;
+  });
+
+  const reducedKeywordsList = Object.keys(keywordCounter).sort(
+    (a, b) => parseFloat(b) - parseFloat(a)
+  );
+
+  if (reducedKeywordsList <= 3) {
+    reducedKeywordsList.slice(2);
+  } else {
+    reducedKeywordsList.slice(1);
+  }
+
+  console.log(keywordCounter);
+  console.log({ reducedKeywordsList });
 
   return (
     <section className='saved-news-header'>
       <h2 className='saved-news-header__title'>Saved articles</h2>
       <h3 className='saved-news-header__greeting'>
-        {`Barak, you have ${collection.length} saved articles`}
+        {`${currentUser}, you have ${savedArticles.length} saved articles`}
       </h3>
       <p className='saved-news-header__keywords-used'>
-        {`By ${collection.length === 0 ? 'no keywords' : 'keywords:'}`}
+        {`By ${savedArticles.length === 0 ? 'no keywords' : 'keywords:'}`}
         <span className='saved-news-header__bold-keyword'>
-          {`${collection.length === 0 ? '' : 'keywords'}`}
+          {`${savedArticles.length === 0 ? '' : `{keywordsList}`}`}
         </span>
       </p>
     </section>

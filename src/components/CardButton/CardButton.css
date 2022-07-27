@@ -34,10 +34,6 @@
   background-image: url(../../images/trash.svg);
 }
 
-.button_type_delete:hover {
-  background-image: url(../../images/trash-hover.svg);
-}
-
 .button_type_save:hover {
   background-image: url(../../images/save-hover.svg);
 }
@@ -52,4 +48,20 @@
 
 .button:hover + .button__status {
   display: block;
+}
+
+@media screen and (max-width: 920px) {
+  .button__status {
+    display: none;
+
+    margin-right: 5px;
+    border-radius: 10px;
+    padding: 13px 26px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .saved-news-wrapper {
+    padding: 0 16px;
+  }
 }

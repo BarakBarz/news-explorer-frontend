@@ -34,9 +34,8 @@ const App = () => {
   const [currentKeyword, setCurrentKeyword] = useState(
     localStorage.getItem('keyword')
   );
-  const [isArticleSaved, setIsArticleSaved] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [collection, setCollection] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([]);
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
   // localStorage.removeItem('articles');
   const [articles, setArticles] = useState(
@@ -57,6 +56,12 @@ const App = () => {
           console.log(err);
           setIsLoggedIn(false);
         });
+    }
+
+    if (isLoggedIn) {
+      getUserSavedArticles().then((res) => {
+        setSavedArticles(res);
+      });
     }
   }, [isLoggedIn, userToken]);
 
@@ -122,17 +127,23 @@ const App = () => {
       .finally(() => {});
   };
 
-  const handleLogout = () => {
+  const clearAllUserData = () => {
     localStorage.removeItem('token');
     setUserToken(undefined);
     setCurrentUser(null);
     setIsLoggedIn(false);
+  };
+
+  const handleLogout = () => {
+    clearAllUserData();
     history.push('/');
   };
 
   const handleSearchButton = (keyword) => {
-    localStorage.setItem('keyword', keyword);
-    setCurrentKeyword(keyword);
+    const upperCaseKeyword = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+
+    localStorage.setItem('keyword', upperCaseKeyword);
+    setCurrentKeyword(upperCaseKeyword);
     localStorage.removeItem('articles');
     setArticles(null);
 
@@ -170,34 +181,42 @@ const App = () => {
       .finally(() => setPreloader(false));
   };
 
-  const handleSaveArticle = (
-    e,
-    { title, text, source, link, date, image },
-    article
+  const getUserSavedArticles = () => {
+    return mainApi.getArticleCollection(userToken).then((res) => {
+      return res;
+    });
+  };
+
+  const handleSaveArticleButton = async (
+    isSaved,
+    { title, text, source, link, date, image, _id }
   ) => {
-    console.log(article);
+    if (!isSaved) {
+      mainApi
+        .saveArticle(
+          { keyword: currentKeyword, title, text, source, link, date, image },
+          userToken
+        )
+        .then((savedArticle) => {
+          setSavedArticles((savedArticles) => [savedArticle, ...savedArticles]);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      return;
+    }
 
-    // get saved articles, put in localstorage as state collection to save time
-    // if in local storage, skip the getarticles
-    // if saved must delete collection from localstorage and state
-    // compare link from collection article to link from article itself. with.some on the saved collection
-    // if a match, delete if no match, save article.
-    //change button accordingly.
-
-    const isSaved = article.url === link;
-
-    console.log(isSaved);
-    // mainApi
-    //   .saveArticle(
-    //     { keyword: currentKeyword, title, text, source, link, date, image },
-    //     userToken
-    //   )
-    //   .then((res) => {
-    //     res.link;
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    mainApi
+      .removeSavedArticle(_id, userToken)
+      .then((removedArticle) => {
+        const newSavedArticle = savedArticles.filter(
+          (currentArticle) => currentArticle._id !== removedArticle._id
+        );
+        setSavedArticles(newSavedArticle);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -237,23 +256,24 @@ const App = () => {
             />
             <Main
               onSearchClick={handleSearchButton}
-              isLoggedIn={isLoggedIn}
-              preloader={preloader}
+              onSaveClick={handleSaveArticleButton}
               isMain={isMain}
-              placeholder={placeholder}
               articles={articles}
-              isArticleSaved={isArticleSaved}
-              onSaveClick={handleSaveArticle}
-              showSearchResults={showSearchResults}
-              showNothingFound={showNothingFound}
+              preloader={preloader}
+              isLoggedIn={isLoggedIn}
+              placeholder={placeholder}
+              savedArticles={savedArticles}
               showServerError={showServerError}
+              showNothingFound={showNothingFound}
+              showSearchResults={showSearchResults}
             />
           </Route>
           <Route exact path='/saved-news'>
             <SavedNews
               isLoggedIn={isLoggedIn}
               isMain={isMain}
-              collection={collection}
+              savedArticles={savedArticles}
+              onDeleteClick={handleSaveArticleButton}
             />
           </Route>
         </Switch>

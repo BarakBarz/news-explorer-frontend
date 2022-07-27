@@ -10,7 +10,7 @@ const Main = ({
   isMain,
   onSearchClick,
   articles,
-  isArticleSaved,
+  savedArticles,
   placeholder,
   showSearchResults,
   showNothingFound,
@@ -28,7 +28,7 @@ const Main = ({
               isLoggedIn={isLoggedIn}
               isMain={isMain}
               articles={articles}
-              isArticleSaved={isArticleSaved}
+              savedArticles={savedArticles}
               showNothingFound={showNothingFound}
               onSaveClick={onSaveClick}
             />

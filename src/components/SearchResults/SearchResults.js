@@ -11,7 +11,7 @@ const SearchResults = React.memo(
     showNothingFound,
     showServerError,
     onSaveClick,
-    isArticleSaved,
+    savedArticles,
   }) => {
     const [count, setCount] = useState(3);
 
@@ -28,9 +28,9 @@ const SearchResults = React.memo(
             <h2 className='results__title'>{resultsTitle}</h2>
             {!showServerError && (
               <NewsCardList
-                onSaveClick={onSaveClick}
+                onCardButtonClick={onSaveClick}
                 articles={articles}
-                isArticleSaved={isArticleSaved}
+                savedArticles={savedArticles}
                 isLoggedIn={isLoggedIn}
                 isMain={isMain}
                 count={count}
