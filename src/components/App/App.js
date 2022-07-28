@@ -31,13 +31,17 @@ const App = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
 
   const [showServerError, setShowServerError] = useState(false);
+
   const [currentKeyword, setCurrentKeyword] = useState(
     localStorage.getItem('keyword')
   );
+
   const [currentUser, setCurrentUser] = useState(null);
   const [savedArticles, setSavedArticles] = useState([]);
+
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
   // localStorage.removeItem('articles');
+
   const [articles, setArticles] = useState(
     JSON.parse(localStorage.getItem('articles'))
   );
@@ -59,7 +63,7 @@ const App = () => {
     }
 
     if (isLoggedIn) {
-      getUserSavedArticles().then((res) => {
+      mainApi.getUserArticleCollection(userToken).then((res) => {
         setSavedArticles(res.reverse());
       });
     }
@@ -180,12 +184,6 @@ const App = () => {
         setShowServerError(true);
       })
       .finally(() => setPreloader(false));
-  };
-
-  const getUserSavedArticles = () => {
-    return mainApi.getArticleCollection(userToken).then((res) => {
-      return res;
-    });
   };
 
   const handleSaveArticleButton = async (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardButtonSave from '../CardButton/CardButtonSave';
 import CardButtonDelete from '../CardButton/CardButtonDelete';
 import './NewsCard.css';

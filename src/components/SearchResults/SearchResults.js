@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import NothingFound from '../NothingFound/NothingFound';
 import './SearchResults.css';

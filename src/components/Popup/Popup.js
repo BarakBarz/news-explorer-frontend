@@ -11,11 +11,7 @@ const Popup = ({ isOpen, name, onClose, children }) => {
     };
 
     document.addEventListener('keydown', closeByEscape);
-    return () =>
-      document.removeEventListener(
-        'keydown',
-        closeByEscape
-      );
+    return () => document.removeEventListener('keydown', closeByEscape);
   }, [isOpen, onClose]);
 
   const handleOverlay = (e) => {
@@ -26,10 +22,8 @@ const Popup = ({ isOpen, name, onClose, children }) => {
 
   return (
     <div
-      className={`popup ${
-        isOpen ? 'popup_visible' : ''
-      } popup_type_${name} `}
-      onClick={handleOverlay}>
+      className={`popup ${isOpen ? 'popup_visible' : ''} popup_type_${name} `}
+      onMouseDown={handleOverlay}>
       <div className={`popup__box popup__box_type_${name}`}>
         {children}
 

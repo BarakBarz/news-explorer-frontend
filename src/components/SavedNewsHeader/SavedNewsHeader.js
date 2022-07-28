@@ -18,7 +18,7 @@ const SavedNewsHeader = ({ savedArticles }) => {
 
     let keywords;
 
-    if (sortedKeywordsFromHighTolow <= 3) {
+    if (sortedKeywordsFromHighTolow.length <= 3) {
       keywords = sortedKeywordsFromHighTolow.slice(0, 3);
     } else {
       keywords = sortedKeywordsFromHighTolow.slice(0, 2);

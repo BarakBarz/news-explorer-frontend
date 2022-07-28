@@ -36,7 +36,7 @@
   background-color: #2a65cc;
 }
 
-.popup__submit-btn_disabled {
+.popup__submit-btn:disabled {
   color: rgba(182, 188, 191, 1);
   background-color: rgba(230, 232, 235, 1);
   cursor: default;
@@ -53,7 +53,7 @@
   padding: 10px 0;
   border-style: none;
   border-bottom: 1px solid rgba(0, 0, 0, 1);
-  margin-bottom: 30px;
+  margin-bottom: 3px;
   font-size: 14px;
   line-height: 1.21;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -74,6 +74,7 @@
   line-height: 1.2;
   max-width: 383px;
   white-space: initial;
+  margin: 0 0 13px;
 }
 
 .popup__error_visible {
