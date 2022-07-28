@@ -13,6 +13,7 @@ import * as auth from '../../utils/auth';
 import { CurrentUserProvider } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import PopupSuccess from '../PopupSuccess/PopupSuccess';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 const App = () => {
@@ -36,8 +37,6 @@ const App = () => {
     localStorage.getItem('keyword')
   );
 
-  const [authError, setAuthError] = useState('');
-
   const [currentUser, setCurrentUser] = useState(null);
   const [savedArticles, setSavedArticles] = useState([]);
 
@@ -49,6 +48,25 @@ const App = () => {
   );
 
   const isMain = usePathname() === '/';
+
+  const checkAuth = () => {
+    auth
+      .checkToken(userToken)
+      .then((res) => {
+        setCurrentUser(res.name);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoggedIn(false);
+      });
+
+    if (isLoggedIn) {
+      mainApi.getUserArticleCollection(userToken).then((res) => {
+        setSavedArticles(res.reverse());
+      });
+    }
+  };
 
   useEffect(() => {
     if (userToken) {
@@ -227,17 +245,17 @@ const App = () => {
   return (
     <CurrentUserProvider value={currentUser}>
       <div className='wrapper'>
-        {isMain && (
-          <img className='background' src={background} alt='background' />
-        )}
-        <Header
-          onLogoutClick={handleLogout}
-          isLoggedIn={isLoggedIn}
-          isMain={isMain}
-          onSigninClick={handleSignupClick}
-        />
         <Switch>
           <Route exact path='/'>
+            {isMain && (
+              <img className='background' src={background} alt='background' />
+            )}
+            <Header
+              onLogoutClick={handleLogout}
+              isLoggedIn={isLoggedIn}
+              isMain={isMain}
+              onSigninClick={handleSignupClick}
+            />
             <Register
               isRegistered={isRegistered}
               isOpen={isSignupOpen}
@@ -272,17 +290,29 @@ const App = () => {
               showNothingFound={showNothingFound}
               showSearchResults={showSearchResults}
             />
+            <Footer />
           </Route>
-          <Route exact path='/saved-news'>
+          <ProtectedRoute
+            exact
+            path='/saved-news'
+            userToken={userToken}
+            isLoggedIn={isLoggedIn}>
+            <Header
+              onLogoutClick={handleLogout}
+              isLoggedIn={isLoggedIn}
+              isMain={isMain}
+              onSigninClick={handleSignupClick}
+            />
             <SavedNews
               isLoggedIn={isLoggedIn}
               isMain={isMain}
               savedArticles={savedArticles}
               onDeleteClick={handleSaveArticleButton}
             />
-          </Route>
+            <Footer />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='*' />
         </Switch>
-        <Footer />
       </div>
     </CurrentUserProvider>
   );

@@ -4,7 +4,7 @@ import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Login.css';
 
 const Login = ({ onClose, isOpen, switchPopups, onSubmit }) => {
-  const { handleChange, errors, isValid, resetForm, handleSubmit } =
+  const { handleChange, errors, isValid, handleSubmit } =
     FormUseWithValidation(onSubmit);
 
   return (

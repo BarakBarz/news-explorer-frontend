@@ -105,6 +105,18 @@ const FormUseWithValidation = (submitFunction) => {
             submitRegisterError: 'Email or password already taken',
           });
           return;
+        } else if (res.status === 500) {
+          setErrors({
+            ...errors,
+            submitRegisterError:
+              'Something went wrong with the server. please try again later',
+          });
+          setErrors({
+            ...errors,
+            submitLoginError:
+              'Something went wrong with the server. please try again later',
+          });
+          return;
         } else if (!res.ok) {
           setErrors({
             ...errors,
@@ -130,25 +142,3 @@ const FormUseWithValidation = (submitFunction) => {
 };
 
 export default FormUseWithValidation;
-
-//Login
-
-// const [inputs, setInput] = useState({
-//   email: '',
-//   password: '',
-// });
-
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   onSubmit({ values });
-// };
-
-// const handleChange = (e) => {
-//   const value = e.target.value;
-//   setInput({
-//     ...inputs,
-//     [e.target.name]: value,
-//   });
-// };
-
-// const errorText = null;

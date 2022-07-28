@@ -20,8 +20,6 @@ export default function PopupWithForm({
     switchPopups();
   };
 
-  console.log(errors);
-
   return (
     <Popup isOpen={isOpen} onClose={onClose} name={name}>
       <h3 className={`popup__title popup__title_type_${name}`}>{title}</h3>
