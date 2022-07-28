@@ -36,6 +36,8 @@ const App = () => {
     localStorage.getItem('keyword')
   );
 
+  const [authError, setAuthError] = useState('');
+
   const [currentUser, setCurrentUser] = useState(null);
   const [savedArticles, setSavedArticles] = useState([]);
 
@@ -99,8 +101,8 @@ const App = () => {
     setIsSignupOpen(true);
   };
 
-  const handleRegistration = ({ inputs }) => {
-    auth
+  const handleRegistration = async (inputs) => {
+    const registrationResponse = await auth
       .register(inputs)
       .then((res) => {
         if (res._id) {
@@ -108,14 +110,16 @@ const App = () => {
           setIsSignupOpen(false);
           setIsSuccessPopupOpen(true);
         }
+        return res;
       })
       .catch((e) => {
-        console.log(e);
+        return e;
       });
+    return registrationResponse;
   };
 
-  const handleLogin = ({ inputs }) => {
-    auth
+  const handleLogin = async (inputs) => {
+    const loginResponse = await auth
       .authorize(inputs)
       .then((data) => {
         if (data.token) {
@@ -124,11 +128,13 @@ const App = () => {
           setIsLoggedIn(true);
           closeAllPopups();
         }
+        return data;
       })
       .catch((e) => {
-        console.log(e);
+        return e;
       })
       .finally(() => {});
+    return loginResponse;
   };
 
   const clearAllUserData = () => {

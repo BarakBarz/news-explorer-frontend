@@ -4,7 +4,7 @@ import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Register.css';
 
 const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
-  const { handleChange, errors, isValid, resetForm, handleSubmit } =
+  const { handleChange, errors, isValid, handleSubmit } =
     FormUseWithValidation(onSubmit);
 
   const [readOnly, setReadOnly] = useState(true);
@@ -18,7 +18,8 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
       title='Sign up'
       name='register'
       isOpen={isOpen}
-      switchPopups={switchPopups}>
+      switchPopups={switchPopups}
+      errors={errors}>
       <label className='popup__input-label'>Email</label>
       <input
         className='popup__input'
@@ -32,7 +33,6 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         required
       />
       <span
-        id='validation-error'
         className={`popup__error ${
           errors.email ? `popup__error_visible` : ''
         }`}>
@@ -53,7 +53,6 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         required
       />
       <span
-        id='validation-error'
         className={`popup__error ${errors.password && `popup__error_visible`}`}>
         {errors.password}
       </span>
@@ -70,15 +69,9 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         minLength='5'
         required
       />
-      <span
-        id='validation-error'
-        className={`popup__error ${errors.username && `popup__error_visible`}`}>
-        {errors.username}
+      <span className={`popup__error ${errors.name && `popup__error_visible`}`}>
+        {errors.name}
       </span>
-
-      <span
-        id='validation-error-from-server'
-        className='popup__error popup__error_type_signup'></span>
     </PopupWithForm>
   );
 };

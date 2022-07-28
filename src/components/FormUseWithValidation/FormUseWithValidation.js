@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 const FormUseWithValidation = (submitFunction) => {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
+
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
@@ -96,8 +97,24 @@ const FormUseWithValidation = (submitFunction) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
-    submitFunction({ values });
+    return fetch(
+      submitFunction(values).then((res) => {
+        if (res.status === 409) {
+          setErrors({
+            ...errors,
+            submitRegisterError: 'Email or password already taken',
+          });
+          return;
+        } else if (!res.ok) {
+          setErrors({
+            ...errors,
+            submitLoginError: 'Email or password is incorrect',
+          });
+        } else if (res.ok) {
+          resetForm();
+        }
+      })
+    );
   };
 
   const resetForm = useCallback(
@@ -109,7 +126,7 @@ const FormUseWithValidation = (submitFunction) => {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm, handleSubmit };
+  return { values, handleChange, errors, isValid, handleSubmit };
 };
 
 export default FormUseWithValidation;

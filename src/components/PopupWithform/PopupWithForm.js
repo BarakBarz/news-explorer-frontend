@@ -12,6 +12,7 @@ export default function PopupWithForm({
   onSubmit,
   switchPopups,
   isValid,
+  errors,
 }) {
   const orText = buttonText === 'Sign in' ? 'Sign Up' : 'Sign in';
 
@@ -19,7 +20,7 @@ export default function PopupWithForm({
     switchPopups();
   };
 
-  console.log(isValid);
+  console.log(errors);
 
   return (
     <Popup isOpen={isOpen} onClose={onClose} name={name}>
@@ -27,6 +28,15 @@ export default function PopupWithForm({
       <form className='popup__form' id={`${name}-form`} onSubmit={onSubmit}>
         {children}
 
+        <span
+          className={`popup__error popup__error_type_submit ${
+            (errors.submitRegisterError || errors.submitLoginError) &&
+            `popup__error_visible`
+          }`}>
+          {errors.submitRegisterError ||
+            errors.submitLoginError ||
+            (errors.submitLoginError && errors.submitRegisterError)}
+        </span>
         <button
           type='submit'
           aria-label='Submit'
