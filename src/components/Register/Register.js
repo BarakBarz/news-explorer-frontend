@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import FormUseWithValidation from '../FormUseWithValidation/FormUseWithValidation';
+import useFormWithValidation from '../../hooks/useFormWithValidation/useFormWithValidation';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Register.css';
 
 const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
-  const { handleChange, errors, isValid, handleSubmit } =
-    FormUseWithValidation(onSubmit);
+  const { handleChange, errors, isValid, values, handleSubmit } =
+    useFormWithValidation(onSubmit);
 
   const [readOnly, setReadOnly] = useState(true);
 
@@ -26,6 +26,7 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         placeholder='Enter email'
         type='email'
         name='email'
+        value={values.email || ''}
         readOnly={readOnly}
         onFocus={() => setReadOnly(false)}
         onBlur={() => setReadOnly(true)}
@@ -45,6 +46,7 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         type='password'
         name='password'
         readOnly={readOnly}
+        value={values.password || ''}
         onFocus={() => setReadOnly(false)}
         onBlur={() => setReadOnly(true)}
         maxLength='30'
@@ -63,6 +65,7 @@ const Register = ({ isOpen, onClose, switchPopups, onSubmit }) => {
         name='name'
         type='text'
         readOnly={readOnly}
+        value={values.name || ''}
         onFocus={() => setReadOnly(false)}
         onBlur={() => setReadOnly(true)}
         onChange={handleChange}

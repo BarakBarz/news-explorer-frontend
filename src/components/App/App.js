@@ -18,9 +18,11 @@ import './App.css';
 
 const App = () => {
   const history = useHistory();
+  const isMain = usePathname() === '/';
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('Auth'));
   const [isRegistered, setIsRegistered] = useState(false);
+
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const [preloader, setPreloader] = useState(false);
@@ -41,15 +43,28 @@ const App = () => {
   const [savedArticles, setSavedArticles] = useState([]);
 
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
-  // localStorage.removeItem('articles');
 
   const [articles, setArticles] = useState(
     JSON.parse(localStorage.getItem('articles'))
   );
 
-  const isMain = usePathname() === '/';
+  const [historyKey, setHistoryKey] = useState(undefined);
 
-  const checkAuth = () => {
+  useEffect(() => {
+    if (
+      !(
+        history.action === 'REPLACE' && history.location.state === '/saved-news'
+      )
+    )
+      return;
+    setIsSigninOpen(true);
+  }, [history.action]);
+
+  useEffect(() => {
+    if (!userToken) {
+      return;
+    }
+
     auth
       .checkToken(userToken)
       .then((res) => {
@@ -60,33 +75,20 @@ const App = () => {
         console.log(err);
         setIsLoggedIn(false);
       });
-
-    if (isLoggedIn) {
-      mainApi.getUserArticleCollection(userToken).then((res) => {
-        setSavedArticles(res.reverse());
-      });
-    }
-  };
+  }, [userToken]);
 
   useEffect(() => {
-    if (userToken) {
-      auth
-        .checkToken(userToken)
-        .then((res) => {
-          setCurrentUser(res.name);
-          setIsLoggedIn(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setIsLoggedIn(false);
-        });
-    }
+    if (!isLoggedIn) return;
 
-    if (isLoggedIn) {
-      mainApi.getUserArticleCollection(userToken).then((res) => {
+    mainApi
+      .getUserArticleCollection(userToken)
+      .then((res) => {
         setSavedArticles(res.reverse());
+      })
+      .catch((e) => {
+        setSavedArticles([]);
+        console.log(e);
       });
-    }
   }, [isLoggedIn, userToken]);
 
   useEffect(() => {
@@ -95,13 +97,13 @@ const App = () => {
     }
   }, [articles]);
 
-  const closeAllPopups = () => {
+  function closeAllPopups() {
     setIsSigninOpen(false);
     setIsSignupOpen(false);
     setIsSuccessPopupOpen(false);
-  };
+  }
 
-  const switchBetweenPopups = () => {
+  function switchBetweenPopups() {
     if (!isSuccessPopupOpen) {
       setIsSigninOpen(!isSigninOpen);
       setIsSignupOpen(!isSignupOpen);
@@ -109,17 +111,17 @@ const App = () => {
       setIsSigninOpen(!isSigninOpen);
       setIsSuccessPopupOpen(!isSuccessPopupOpen);
     }
-  };
+  }
 
-  const handleSignupClick = () => {
+  function handleSignupClick() {
     if (isRegistered) {
       setIsSigninOpen(true);
       return;
     }
     setIsSignupOpen(true);
-  };
+  }
 
-  const handleRegistration = async (inputs) => {
+  async function handleRegistration(inputs) {
     const registrationResponse = await auth
       .register(inputs)
       .then((res) => {
@@ -134,41 +136,41 @@ const App = () => {
         return e;
       });
     return registrationResponse;
-  };
+  }
 
-  const handleLogin = async (inputs) => {
+  async function handleLogin(inputs) {
     const loginResponse = await auth
       .authorize(inputs)
       .then((data) => {
         if (data.token) {
           setUserToken(data.token);
           localStorage.setItem('token', data.token);
-          setIsLoggedIn(true);
+          setIsLoggedIn(localStorage.setItem('Auth', true));
           closeAllPopups();
         }
         return data;
       })
       .catch((e) => {
         return e;
-      })
-      .finally(() => {});
+      });
     return loginResponse;
-  };
+  }
 
   const clearAllUserData = () => {
     localStorage.removeItem('token');
-    setUserToken(undefined);
-    setCurrentUser(null);
+    setUserToken(null);
+    localStorage.removeItem('Auth');
     setIsLoggedIn(false);
+    setCurrentUser(null);
   };
 
-  const handleLogout = () => {
+  function handleLogout() {
     clearAllUserData();
     setIsRegistered(true);
     history.push('/');
-  };
+  }
 
-  const handleSearchButton = (keyword) => {
+  function handleSearchButton(keyword) {
     const upperCaseKeyword = keyword.charAt(0).toUpperCase() + keyword.slice(1);
 
     localStorage.setItem('keyword', upperCaseKeyword);
@@ -208,12 +210,14 @@ const App = () => {
         setShowServerError(true);
       })
       .finally(() => setPreloader(false));
-  };
+  }
 
-  const handleSaveArticleButton = async (
+  async function handleSaveArticleButton(
     isSaved,
     { title, text, source, link, date, image, _id }
-  ) => {
+  ) {
+    if (!isLoggedIn) return setIsSignupOpen(true);
+
     if (!isSaved) {
       mainApi
         .saveArticle(
@@ -240,22 +244,22 @@ const App = () => {
       .catch((e) => {
         console.log(e);
       });
-  };
+  }
 
   return (
     <CurrentUserProvider value={currentUser}>
       <div className='wrapper'>
+        {isMain && (
+          <img className='background' src={background} alt='background' />
+        )}
+        <Header
+          onLogoutClick={handleLogout}
+          isLoggedIn={isLoggedIn}
+          isMain={isMain}
+          onSigninClick={handleSignupClick}
+        />
         <Switch>
           <Route exact path='/'>
-            {isMain && (
-              <img className='background' src={background} alt='background' />
-            )}
-            <Header
-              onLogoutClick={handleLogout}
-              isLoggedIn={isLoggedIn}
-              isMain={isMain}
-              onSigninClick={handleSignupClick}
-            />
             <Register
               isRegistered={isRegistered}
               isOpen={isSignupOpen}
@@ -297,12 +301,6 @@ const App = () => {
             path='/saved-news'
             userToken={userToken}
             isLoggedIn={isLoggedIn}>
-            <Header
-              onLogoutClick={handleLogout}
-              isLoggedIn={isLoggedIn}
-              isMain={isMain}
-              onSigninClick={handleSignupClick}
-            />
             <SavedNews
               isLoggedIn={isLoggedIn}
               isMain={isMain}
@@ -311,7 +309,7 @@ const App = () => {
             />
             <Footer />
           </ProtectedRoute>
-          <ProtectedRoute exact path='*' />
+          <ProtectedRoute path='*' />
         </Switch>
       </div>
     </CurrentUserProvider>

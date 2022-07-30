@@ -19,9 +19,7 @@ class NewsApi extends React.Component {
 
   getNewsArticles(keyword) {
     return fetch(
-      `${
-        this._url
-      }/?q=${keyword}&${this._fromTo()}&pageSize=100&apiKey=${
+      `${this._url}/?q=${keyword}&${this._fromTo()}&pageSize=100&apiKey=${
         this._apiKey
       }`
     ).then((res) => this._getResponseData(res));
@@ -36,7 +34,7 @@ class NewsApi extends React.Component {
 }
 
 const newsApi = new NewsApi({
-  baseUrl: 'https://newsapi.org/v2/everything',
+  baseUrl: 'https://nomoreparties.co/news/v2/everything',
 });
 
 export default newsApi;

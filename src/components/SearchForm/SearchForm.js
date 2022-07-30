@@ -19,7 +19,7 @@ function SearchForm({ onSearchClick, placeholder }) {
         onChange={handleChange}
         type='text'
         placeholder={placeholder}
-        value={'' || search}
+        value={search || ''}
         className='form__input'></input>
       <button className='form__button'>Search</button>
     </form>

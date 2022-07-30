@@ -1,11 +1,11 @@
 import React from 'react';
-import FormUseWithValidation from '../FormUseWithValidation/FormUseWithValidation';
+import useFormWithValidation from '../../hooks/useFormWithValidation/useFormWithValidation';
 import PopupWithForm from '../PopupWithform/PopupWithForm';
 import './Login.css';
 
 const Login = ({ onClose, isOpen, switchPopups, onSubmit }) => {
-  const { handleChange, errors, isValid, handleSubmit } =
-    FormUseWithValidation(onSubmit);
+  const { handleChange, errors, isValid, values, handleSubmit } =
+    useFormWithValidation(onSubmit);
 
   return (
     <PopupWithForm
@@ -19,14 +19,17 @@ const Login = ({ onClose, isOpen, switchPopups, onSubmit }) => {
       switchPopups={switchPopups}
       errors={errors}>
       <label className='popup__input-label'>Email</label>
+
       <input
         className='popup__input popup__input_type_login'
         placeholder='Enter email'
         name='email'
         type='email'
+        value={values.email || ''}
         onChange={handleChange}
         required
       />
+
       <span
         id='validation-error'
         className={`popup__error ${
@@ -41,6 +44,7 @@ const Login = ({ onClose, isOpen, switchPopups, onSubmit }) => {
         name='password'
         maxLength='30'
         minLength='8'
+        value={values.password || ''}
         type='password'
         onChange={handleChange}
         required

@@ -1,13 +1,12 @@
 import React, { useCallback } from 'react';
 
-const FormUseWithValidation = (submitFunction) => {
+const useFormWithValidation = (submitFunction) => {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
 
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
-    event.persist();
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -98,34 +97,37 @@ const FormUseWithValidation = (submitFunction) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     return fetch(
-      submitFunction(values).then((res) => {
-        if (res.status === 409) {
-          setErrors({
-            ...errors,
-            submitRegisterError: 'Email or password already taken',
-          });
-          return;
-        } else if (res.status === 500) {
-          setErrors({
-            ...errors,
-            submitRegisterError:
-              'Something went wrong with the server. please try again later',
-          });
-          setErrors({
-            ...errors,
-            submitLoginError:
-              'Something went wrong with the server. please try again later',
-          });
-          return;
-        } else if (!res.ok) {
-          setErrors({
-            ...errors,
-            submitLoginError: 'Email or password is incorrect',
-          });
-        } else if (res.ok) {
+      submitFunction(values)
+        .then((res) => {
+          if (res.status === 409) {
+            setErrors({
+              ...errors,
+              submitRegisterError: 'Something went wrong',
+            });
+            return;
+          } else if (res.status === 500) {
+            setErrors({
+              ...errors,
+              submitRegisterError:
+                'Something went wrong with the server. please try again later',
+            });
+            setErrors({
+              ...errors,
+              submitLoginError:
+                'Something went wrong with the server. please try again later',
+            });
+            return;
+          } else if (res.ok === false) {
+            setErrors({
+              ...errors,
+              submitLoginError: 'Email or password is incorrect',
+            });
+            return;
+          }
+
           resetForm();
-        }
-      })
+        })
+        .catch((e) => console.log(e))
     );
   };
 
@@ -141,4 +143,4 @@ const FormUseWithValidation = (submitFunction) => {
   return { values, handleChange, errors, isValid, handleSubmit };
 };
 
-export default FormUseWithValidation;
+export default useFormWithValidation;

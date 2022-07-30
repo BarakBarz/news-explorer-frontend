@@ -8,8 +8,20 @@ const ProtectedRoute = ({
   path,
   ...props
 }) => {
+  console.log(path, props);
   return (
-    <Route {...props}>{isLoggedIn ? children : <Redirect to='/' />}</Route>
+    <Route {...props}>
+      {isLoggedIn ? (
+        children
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/',
+            state: path,
+          }}
+        />
+      )}
+    </Route>
   );
 };
 
