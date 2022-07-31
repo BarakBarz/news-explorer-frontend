@@ -1,12 +1,9 @@
 import React from 'react';
 import './CardButton.css';
 
-const CardButtonSave = ({
-  isLoggedIn,
-  isArticleSaved,
-  saveButtonClick,
-}) => {
+const CardButtonSave = ({ isLoggedIn, saveButtonClick, isSaved }) => {
   const handleClick = (e) => {
+    e.stopPropagation();
     saveButtonClick(e);
   };
 
@@ -15,16 +12,14 @@ const CardButtonSave = ({
       <button
         onClick={(e) => handleClick(e)}
         className={
-          isLoggedIn && isArticleSaved
+          isLoggedIn && isSaved
             ? 'button button_type_save button_type_save_active'
             : 'button button_type_save'
         }
       />
       {!isLoggedIn && (
         <div className='button__status'>
-          <p className='button__status-text'>
-            Sign in to save articles
-          </p>
+          <p className='button__status-text'>Sign in to save articles</p>
         </div>
       )}
     </>

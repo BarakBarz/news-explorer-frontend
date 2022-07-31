@@ -1,7 +1,9 @@
 import React from 'react';
+import './CardButtonDelete.css';
 
 const CardButtonDelete = ({ deleteButtonClick }) => {
   const handleClick = (e) => {
+    e.stopPropagation();
     deleteButtonClick(e);
   };
 
@@ -13,9 +15,7 @@ const CardButtonDelete = ({ deleteButtonClick }) => {
       />
 
       <div className='button__status'>
-        <p className='button__status-text'>
-          Remove from saved
-        </p>
+        <p className='button__status-text'>Remove from saved</p>
       </div>
     </>
   );

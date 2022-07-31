@@ -62,4 +62,8 @@
   .search__title {
     margin-top: 30px;
   }
+
+  .search__paragraph {
+    width: 288px;
+  }
 }

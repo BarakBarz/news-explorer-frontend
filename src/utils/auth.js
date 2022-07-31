@@ -1,8 +1,8 @@
-const BASE_URL = 'https://api.aroundbarak.students.nomoredomainssbs.ru';
+const BASE_URL = 'https://api.barakfinal-project.students.nomoredomainssbs.ru';
 
-const isResOk = (res) => (res.ok ? res.json() : Promise.reject(`Something went wrong: ${res.status}`));
+const isResOk = (res) => res.ok ? res.json() : Promise.reject(res);
 
-export const register = ({ values }) => {
+export const register = (values) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
@@ -12,7 +12,7 @@ export const register = ({ values }) => {
   }).then(isResOk);
 };
 
-export const authorize = ({ values }) => {
+export const authorize = (values) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {

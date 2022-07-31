@@ -1,4 +1,5 @@
 import React from 'react';
+import Popup from '../Popup/Popup';
 import './PopupWithForm.css';
 
 export default function PopupWithForm({
@@ -10,52 +11,45 @@ export default function PopupWithForm({
   onClose,
   onSubmit,
   switchPopups,
+  isValid,
+  errors,
 }) {
-  const orText =
-    buttonText === 'Sign in' ? 'Sign Up' : 'Sign in';
+  const orText = buttonText === 'Sign in' ? 'Sign Up' : 'Sign in';
 
   const handleOrClick = () => {
     switchPopups();
   };
 
   return (
-    <div
-      className={`popup popup_type_${name} ${
-        isOpen ? 'popup_visible' : ''
-      }`}>
-      <div className={`popup__box popup__box_type_${name}`}>
-        <button
-          type='button'
-          onClick={onClose}
-          aria-label='Close'
-          className='popup__close-btn'></button>
-        <h3
-          className={`popup__title popup__title_type_${name}`}>
-          {title}
-        </h3>
-        <form
-          className='popup__form'
-          id={`${name}-form`}
-          onSubmit={onSubmit}>
-          {children}
+    <Popup isOpen={isOpen} onClose={onClose} name={name}>
+      <h3 className={`popup__title popup__title_type_${name}`}>{title}</h3>
+      <form className='popup__form' id={`${name}-form`} onSubmit={onSubmit}>
+        {children}
 
-          <button
-            type='submit'
-            aria-label='Submit'
-            className={`popup__submit-btn`}>
-            {buttonText}
-          </button>
-          <p className='popup__text'>
-            or{' '}
-            <span
-              className='popup__link'
-              onClick={handleOrClick}>
-              {orText}
-            </span>
-          </p>
-        </form>
-      </div>
-    </div>
+        <span
+          className={`popup__error popup__error_type_submit ${
+            (errors.submitRegisterError || errors.submitLoginError) &&
+            `popup__error_visible`
+          }`}>
+          {errors.submitRegisterError ||
+            errors.submitLoginError ||
+            (errors.submitLoginError && errors.submitRegisterError)}
+        </span>
+        <button
+          type='submit'
+          aria-label='Submit'
+          className={`popup__submit-btn`}
+          disabled={!isValid}>
+          {buttonText}
+        </button>
+        <p className='popup__text'>
+          or{' '}
+          <span className='popup__link' onClick={handleOrClick}>
+            {orText}
+          </span>
+        </p>
+      </form>
+    </Popup>
   );
 }
 

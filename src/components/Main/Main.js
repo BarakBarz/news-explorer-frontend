@@ -4,17 +4,38 @@ import PreLoader from '../PreLoader/PreLoader';
 import SearchBox from '../SearchBox/SearchBox.js';
 import SearchResults from '../SearchResults/SearchResults';
 
-const Main = ({ isLoggedIn, preloader, isMain }) => {
+const Main = ({
+  isLoggedIn,
+  preloader,
+  isMain,
+  onSearchClick,
+  articles,
+  savedArticles,
+  placeholder,
+  showSearchResults,
+  showNothingFound,
+  showServerError,
+  onSaveClick,
+}) => {
   return (
     <main>
-      <SearchBox />
-      {!preloader ? (
-        <SearchResults
-          isLoggedIn={isLoggedIn}
-          isMain={isMain}
-        />
-      ) : (
-        <PreLoader />
+      <SearchBox placeholder={placeholder} onSearchClick={onSearchClick} />
+      {showSearchResults && (
+        <>
+          {!preloader ? (
+            <SearchResults
+              showServerError={showServerError}
+              isLoggedIn={isLoggedIn}
+              isMain={isMain}
+              articles={articles}
+              savedArticles={savedArticles}
+              showNothingFound={showNothingFound}
+              onSaveClick={onSaveClick}
+            />
+          ) : (
+            <PreLoader />
+          )}
+        </>
       )}
       <About />
     </main>

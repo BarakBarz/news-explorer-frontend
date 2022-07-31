@@ -18,3 +18,15 @@
   z-index: -2;
 }
 
+@media screen and (max-width: 920px) {
+  .background {
+    height: calc(365px + 67.5px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .background {
+    height: calc(478px + 56px);
+  }
+}
+
