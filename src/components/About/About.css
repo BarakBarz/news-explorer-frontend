@@ -21,8 +21,7 @@
 }
 
 .about__header {
-  font-family: 'Roboto-Slab', 'Open Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto-Slab', 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 40px;
   line-height: 1.15;
   margin-bottom: 24px;
@@ -68,7 +67,7 @@
   .about {
     flex-direction: column;
     padding: 32px 24px 0;
-    height: 752px;
+    min-height: 752px;
     box-sizing: border-box;
   }
 
