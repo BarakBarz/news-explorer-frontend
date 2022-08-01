@@ -8,7 +8,6 @@ const ProtectedRoute = ({
   path,
   ...props
 }) => {
-  console.log(path, props);
   return (
     <Route {...props}>
       {isLoggedIn ? (

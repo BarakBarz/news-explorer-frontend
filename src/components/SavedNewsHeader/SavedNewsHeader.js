@@ -13,7 +13,7 @@ const SavedNewsHeader = ({ savedArticles }) => {
     });
 
     const sortedKeywordsFromHighTolow = Object.keys(keywordCounter).sort(
-      (a, b) => parseFloat(b) - parseFloat(a)
+      (a, b) => keywordCounter[b] - keywordCounter[a]
     );
 
     let keywords;

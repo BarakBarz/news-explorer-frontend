@@ -48,8 +48,6 @@ const App = () => {
     JSON.parse(localStorage.getItem('articles'))
   );
 
-  const [historyKey, setHistoryKey] = useState(undefined);
-
   useEffect(() => {
     if (
       !(
@@ -58,7 +56,7 @@ const App = () => {
     )
       return;
     setIsSigninOpen(true);
-  }, [history.action]);
+  }, [history]);
 
   useEffect(() => {
     if (!userToken) {
