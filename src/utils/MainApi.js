@@ -48,7 +48,7 @@ class MainApi extends React.Component {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.barakfinal-project.students.nomoredomainssbs.ru',
+  baseUrl: 'https://api.news-explorer-bb.students.nomoredomainssbs.ru',
 });
 
 export default mainApi;

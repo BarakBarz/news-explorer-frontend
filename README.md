@@ -42,7 +42,7 @@ mainApi.js in the utils folder to 'localhost:3000' or the port of your choice.
 // example auth.js
 
 //from:
-const BASE_URL = 'https://api.barakfinal-project.students.nomoredomainssbs.ru';
+const BASE_URL = 'https://api.news-explorer-bb.students.nomoredomainssbs.ru';
 // to:
 const BASE_URL = 'localhost:3000';
 ```
@@ -60,7 +60,7 @@ const BASE_URL = 'localhost:3000';
 
 ---
 
-[The full fledged website](https://barakfinal-project.students.nomoredomainssbs.ru)
+[The full fledged website](https://news-explorer-bb.students.nomoredomainssbs.ru)
 
 [The backend code](https://github.com/BarakB1991/news-explorer-api.git)
 
