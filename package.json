@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "npm run build && scp -r -i ~/.ssh/id_rsa ./build/* barakoyb@barakfinal-project.students.nomoredomainssbs.ru:/home/barakoyb/frontend"
+    "deploy": "npm run build && scp -r -i ~/.ssh/id_rsa ./build/* barakoyb@news-explorer-bb.students.nomoredomainssbs.ru:/home/barakoyb/frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -36,3 +36,4 @@
     ]
   }
 }
+
