@@ -48,7 +48,7 @@ class MainApi extends React.Component {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.news-explorer-bb.students.nomoredomainssbs.ru',
+  baseUrl: 'https://news-explorer-frontend-barakb1991.vercel.app/api/v1',
 });
 
 export default mainApi;

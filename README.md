@@ -42,7 +42,11 @@ mainApi.js in the utils folder to 'localhost:3000' or the port of your choice.
 // example auth.js
 
 //from:
+<<<<<<< HEAD
 const BASE_URL = 'https://api.news-explorer-bb.students.nomoredomainssbs.ru';
+=======
+const BASE_URL = 'https://news-explorer-frontend-barakb1991.vercel.app/api/v1';
+>>>>>>> stage-3
 // to:
 const BASE_URL = 'localhost:3000';
 ```
@@ -60,7 +64,11 @@ const BASE_URL = 'localhost:3000';
 
 ---
 
+<<<<<<< HEAD
 [The full fledged website](https://news-explorer-bb.students.nomoredomainssbs.ru)
+=======
+[The full fledged website](https://news-explorer-frontend-barakb1991.vercel.app/)
+>>>>>>> stage-3
 
 [The backend code](https://github.com/BarakB1991/news-explorer-api.git)
 

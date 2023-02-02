@@ -1,6 +1,6 @@
-const BASE_URL = 'https://api.news-explorer-bb.students.nomoredomainssbs.ru';
+const BASE_URL = 'https://news-explorer-frontend-barakb1991.vercel.app/api/v1';
 
-const isResOk = (res) => res.ok ? res.json() : Promise.reject(res);
+const isResOk = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const register = (values) => {
   return fetch(`${BASE_URL}/signup`, {
