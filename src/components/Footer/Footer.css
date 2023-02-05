@@ -42,7 +42,7 @@
 }
 
 .footer__icon-link {
-  padding-left: 28px;
+  padding-left: 18px;
 }
 
 @media screen and (max-width: 920px) {
@@ -54,7 +54,7 @@
   }
 
   .footer__icon-link {
-    padding-left: 25px;
+    padding-left: 15px;
   }
 
   .footer__link {

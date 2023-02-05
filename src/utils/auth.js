@@ -1,4 +1,4 @@
-const BASE_URL = 'https://news-explorer-frontend-barakb1991.vercel.app/api/v1';
+const BASE_URL = 'https://news-explorer-api-pearl.vercel.app/api/v1';
 
 const isResOk = (res) => (res.ok ? res.json() : Promise.reject(res));
 

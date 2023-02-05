@@ -21,7 +21,7 @@ class NewsApi extends React.Component {
     return fetch(
       `${this._url}/?q=${keyword}&${this._fromTo()}&pageSize=100&apiKey=${
         this._apiKey
-      }`
+      }`,
     ).then((res) => this._getResponseData(res));
   }
 
