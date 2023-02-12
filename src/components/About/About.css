@@ -11,6 +11,7 @@
   width: 464px;
   justify-self: start;
   margin-top: 80px;
+  border-radius: 50%;
 }
 
 .about__info {
